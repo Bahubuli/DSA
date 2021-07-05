@@ -5,7 +5,7 @@ char upper(char c)
 {
     return 'A'+(c-'a');
 }
-
+//this is great
 void edito()
 {
     while(true)

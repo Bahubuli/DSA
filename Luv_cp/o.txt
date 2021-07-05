@@ -1,4 +1,10 @@
-value of N is 200010
-3
-1
-2
+NO
+NO
+YES
+NO
+NO
+YES
+NO
+YES
+YES
+YES
