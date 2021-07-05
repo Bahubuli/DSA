@@ -30,12 +30,24 @@ void edtio()
         {
             hsh[i+1][s[i] - 'a']++;
         }
+        for (int i = 0; i < 26; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                cout << hsh[j][i] << " ";
+            }
+            cout << endl;
+        }
+        
+        cout << "++++++++++++++++" << endl;
         for(int i=0;i<26;i++)
         {
             for(int j=1;j<=n;j++)
             {
                 hsh[j][i] += hsh[j - 1][i];
+                cout << hsh[j][i] << " ";
             }
+            cout << endl;
         }
 
                 while (q--)
@@ -69,7 +81,7 @@ int main()
      freopen("i.txt", "r", stdin);
      freopen("o.txt", "w", stdout);
      #endif
-
+/*
      int t;
      cin >> t;
      while(t--)
@@ -107,5 +119,6 @@ int main()
             }
          }
      }
+     */
      edtio();
 }
