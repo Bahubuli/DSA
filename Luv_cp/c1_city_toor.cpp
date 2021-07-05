@@ -5,7 +5,7 @@ using namespace std;
 void edito()
 {
     // don't use pow function
-    // multiply by 2 in each iteration
+    // multiply by 2 in each iteration.
 
 }
 //will not work in case of very large binary number
