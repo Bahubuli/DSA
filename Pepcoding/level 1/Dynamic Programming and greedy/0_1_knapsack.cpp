@@ -29,6 +29,47 @@ int knapsack01(vector<int> w,vector<int> v,int i,int cap,int pf)
 }
 
 //dp code
+int knapsack01dp(vector<int> w,vector<int> v,int cap)
+{
+
+    vector<vector<int>> dp(w.size() + 1, vector<int>(cap + 1));
+
+    for(int i=1;i<=w.size();i++)
+    {
+        for(int j=1;j<=cap;j++)
+        {
+
+                int part = 0;
+                int notpart = 0;
+                if(j-w[i-1]>=0)
+                {
+                    part = v[i - 1] + dp[i - 1][j - w[i - 1]];
+                }
+
+                    notpart = dp[i - 1][j];
+
+                if(part>notpart)
+                    dp[i][j] = part;
+                else
+                {
+                    dp[i][j] = notpart;
+                }
+
+        }
+    }
+
+
+    // for(int i=1;i<=w.size();i++)
+    // {
+    //     for(int j=1;j<=cap;j++)
+    //     {
+    //         cout << dp[i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
+
+            return dp[v.size()][cap];
+}
 
 
 
@@ -60,12 +101,6 @@ int main()
    vector<int> w(n);
    vector<int> v(n);
 
-int min=9999;
-for(int i=0;i<w.size();i++)
-if(w[i]<min)
-min=w[i];
-
-
 
       for(int i=0;i<n;i++)
       cin>>v[i];
@@ -73,17 +108,10 @@ min=w[i];
     for(int i=0;i<n;i++)
       cin>>w[i];
 
-
-
       int cap;
       cin>>cap;
 
+     //cout<<knapsack01(w,v,0,cap,0);
 
-    cout<<knapsack01(w,v,0,cap,0);
-
-
-
-
-
-
+     cout << knapsack01dp(w, v, cap);
 }
