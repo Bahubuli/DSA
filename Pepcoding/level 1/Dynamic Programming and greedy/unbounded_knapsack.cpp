@@ -2,27 +2,43 @@
 using namespace std;
 
 
-//write basic recursive code
+
 int knapsackub(vector<int> w,vector<int> v,int i,int cap,int pf)
 {
+    if(cap<0 || i==w.size())
+    {
+        return 0;
+    }
+    if(cap==0)
+        return pf;
 
+        int x = knapsackub(w, v, i, cap - w[i], pf + v[i]);
+        int y = knapsackub(w, v, i + 1, cap - w[i], pf + v[i]);
+        int z = knapsackub(w, v, i + 1, cap, pf);
+
+        int largest = x > y ? (x > z ? x : z) : (y > z ? y : z);
+        if(largest<pf)
+            largest = pf;
+
+        return largest;
 }
 
-//implement dp code on your own
+// dp solution
 int knapsackubdp(vector<int> w,vector<int> v,int cap)
 {
     vector<int> dp(cap + 1);
 
-    for(int c=1;c<=cap;c++)
+    for (int i = 0; i <= cap; i++)
     {
-        for(int i=0;i<w.size();i++)
+        for (int j = 0; j < w.size(); j++)
         {
-            int max = 0;
-            if(w[i]<=c)
+            if (w[j] <= i)
             {
-
-
-            return dp[cap];
+                dp[i] = max(dp[i], dp[i - w[j]] + v[j]);
+            }
+        }
+    }
+    return dp[cap];
 }
 
 
@@ -42,10 +58,10 @@ int knapsackubdp(vector<int> w,vector<int> v,int cap)
 
 int main()
 {
-    #ifndef ONLINE_JUDGE
+
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
-    #endif
+
 
 
 
@@ -65,7 +81,8 @@ int main()
       int cap;
       cin>>cap;
 
-     //cout<<knapsack01(w,v,0,cap,0);
 
-     cout << knapsackubdp(w, v, cap);
+      //cout << knapsackub(w, v, 0, cap, 0);
+
+       cout << knapsackubdp(w, v, cap);
 }

@@ -38,7 +38,7 @@ void edtio()
             }
             cout << endl;
         }
-        
+
         cout << "++++++++++++++++" << endl;
         for(int i=0;i<26;i++)
         {
@@ -77,10 +77,10 @@ void edtio()
 int main()
 {
 
-#ifndef ONLINE_JUDGE
+
      freopen("i.txt", "r", stdin);
      freopen("o.txt", "w", stdout);
-     #endif
+
 /*
      int t;
      cin >> t;
