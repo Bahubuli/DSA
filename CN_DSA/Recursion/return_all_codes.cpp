@@ -57,10 +57,10 @@ vector<string> allcodes(string s,vector<string> sinp,string pf)
 int main()
         {
 
-            freopen("i.txt", "r", stdin);
-            freopen("o.txt", "w", stdout);
+            // freopen("i.txt", "r", stdin);
+            // freopen("o.txt", "w", stdout);
 
-            string s = "1123";
+            string s = "303";
             vector<string> sinp;
             vector<string> res = allcodes(s, sinp, "");
 

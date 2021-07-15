@@ -1,2 +1,2 @@
-  // for (string s : res)
-            //     cout << s << endl;
+ // freopen("i.txt", "r", stdin);
+            // freopen("o.txt", "w", stdout);
