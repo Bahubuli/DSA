@@ -44,7 +44,7 @@ void print(Node * head)
 {
     while(head!=NULL)
     {
-        cout << head->data << endl;
+        cout << head->data << " ";
         head = head->next;
     }
 }
@@ -60,10 +60,6 @@ Node* insertnode( Node *head,int i,int data)\
     }
     else
     {
-
-
-
-
         int count = 0;
         Node *temp = head;
         while (count < i - 1 && temp!=NULL)
@@ -91,30 +87,49 @@ Node* insertnode( Node *head,int i,int data)\
 
 
 
-
-
-
-
-
-void deletenode(Node *temp,int i)
+Node * insertnoder(Node *head,int i,int data)
 {
-    while(i>1 && temp!=NULL)
+    if(head==NULL)
+        return head;
+
+    if(i==0)
     {
-        i--;
-        temp = temp->next;
+        Node *newnode = new Node(data);
+        newnode->next = head;
+        head = newnode;
+        return head;
     }
-    Node *dNode = temp->next;
-    temp->next = temp->next->next;
-    delete dNode;
+
+        if (i == 1)
+        {
+            Node *newnode = new Node(data);
+            newnode->next = head->next;
+            head->next = newnode;
+            return head;
+    }
+    Node *temp = insertnoder(head->next, i - 1, data);
+    head->next = temp;
+    return head;
+}
+
+
+void deletenode(Node * temp, int i)
+        {
+            while (i > 1 && temp != NULL)
+            {
+                i--;
+                temp = temp->next;
+            }
+            Node *dNode = temp->next;
+            temp->next = temp->next->next;
+            delete dNode;
 }
 
 int main()
 
 {
         Node *head = takeInput();
-        //print(head);
-        head = insertnode(head, 0, 33);
-        print(head);
-        deletenode(head, 3);
+
+        head = insertnoder(head, 0, 33);
         print(head);
 }
