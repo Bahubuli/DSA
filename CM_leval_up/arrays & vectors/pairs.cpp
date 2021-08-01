@@ -9,7 +9,7 @@ vector<int> pairsum(vector<int> arr, int S)
     for(int i=0;i<arr.size();i++)
     {
         int x = S - arr[i];
-        if(s.find(x)!=s.end())
+        if (s.find(x) != s.end())
         {
             result.push_back(x);
             result.push_back(arr[i]);
@@ -18,6 +18,8 @@ vector<int> pairsum(vector<int> arr, int S)
         s.insert(arr[i]);
     }
 }
+//s.find(x)!=s.end() this means we reached till end
+//of the unordered set and haven't found the number
 
 int main()
     {
