@@ -107,14 +107,32 @@ void deletenode(Node *temp,int i)
     temp->next = temp->next->next;
     delete dNode;
 }
+int findnode(Node *temp,int x,int count)
+{
+    if(temp==NULL)
+    {
+        return -1;
+    }
+    if(temp->data==x)
+    {
+        return count;
+    }
+    findnode(temp->next, x, count + 1);
+}
+
+
+
 
 int main()
 
 {
         Node *head = takeInput();
         //print(head);
-        head = insertnode(head, 0, 33);
+//         head = insertnode(head, 0, 33);
+//         print(head);
+//         deletenode(head, 3);
+//         print(head);
+//        cout << findnode(head, 7, 0);
+        
         print(head);
-        deletenode(head, 3);
-        print(head);
-}
+ }

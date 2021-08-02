@@ -157,33 +157,43 @@ int findelement(Node *temp,int i,int x)
         return i;
     findelement(temp->next, i + 1, x);
 }
-Node *appendlastn(Node *head, int n)
+
+void eliminatedups(Node *temp)
 {
-    int count = 0;
-    Node *temp = head;
-    while (temp->next != NULL)
+
+    while(temp->next!=NULL)
     {
-        count++;
-        temp = temp->next;
+
+        Node *temp2=NULL;
+
+        if(temp->data==temp->next->data)
+        {
+            temp2 = temp->next;
+            temp->next = temp->next->next;
+
+            delete temp2;
+        }
+        else
+        {
+            temp = temp->next;
+        }
+
+
     }
-    temp->next = head;
-    count = count - n;
-    Node *head2 = head;
-    while (count > 0)
-    {
-        count--;
-        head2 = head2->next;
-    }
-    head = head2->next;
-    head2->next = NULL;
-    return head;
+}
+
+void printreverse(Node *temp)
+{
+    if(temp==NULL)
+    return;
+    printreverse(temp->next);
+    cout << temp->data << " ";
 }
 
 int main()
-
 {
+    
         Node *head = takeInput();
-        head = appendlastn(head, 3);
+        printreverse(head);
 
-        print(head);
 }
