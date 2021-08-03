@@ -8,8 +8,7 @@ int waterweight(vector<int>arr)
     int li = 0;
     int ri = 0;
     int r = 0;
-    int maxw = 0;
-    int w = 0;
+    int maxw = 0; int w = 0;
     for(int i=1;i<arr.size();i++)
     {
         ri = i;
