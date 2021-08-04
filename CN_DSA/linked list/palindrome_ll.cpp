@@ -190,10 +190,82 @@ void printreverse(Node *temp)
     cout << temp->data << " ";
 }
 
+Node *reversell(Node *head)
+{
+    Node *temp = head;
+    Node *curr = temp->next;
+    Node *prev = temp;
+    Node *nxt = curr->next;
+
+    while(nxt!=NULL)
+    {
+        curr->next = prev;
+        prev = curr;
+        curr = nxt;
+        nxt = nxt->next;
+    }
+    curr->next = prev;
+    temp->next = NULL;
+    head = curr;
+    return head;
+}
+
+Node *findmindnode(Node *head)
+{
+    Node *p1 = head;
+    Node *p2 = head;
+
+    while (p2 != NULL && p2->next != NULL)
+    {
+        p1 = p1->next;
+        p2 = p2->next->next;
+    }
+    return p1;
+}
+
+bool ispalindromell(Node *head)
+{
+    //edge cases
+    if(head->next==NULL)
+        return true;
+    if(head->data==head->next->data and head->next->next==NULL)
+        return true;
+    if(head->next->next==NULL and head->data !=head->next->data)
+        return false;
+
+
+    Node *mid = findmindnode(head);
+    Node* rmid = reversell(mid);
+    mid = rmid;
+    Node *temp = head;
+    while (rmid != NULL and temp != NULL and rmid->data == temp->data)
+    {
+        //cout << temp->data << " " << rmid->data << endl;
+        temp = temp->next;
+        rmid = rmid->next;
+    }
+    mid = reversell(mid);
+
+    if(temp==NULL or rmid ==NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+
+
+
 int main()
 {
-    
-        Node *head = takeInput();
-        printreverse(head);
 
+        Node *head = takeInput();
+
+        //cout << findmindnode(head)->data << endl;
+        cout << ispalindromell(head) << endl;
+        print(head);
 }

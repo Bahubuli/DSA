@@ -7,7 +7,7 @@ using namespace std;
         if (i > s.length())
             return 0;
         cout << res << " " << s.substr(i) << endl;
-        
+
         if (isfor(res))
             return 1;
 
@@ -18,8 +18,7 @@ using namespace std;
 
 int main()
 {
-        freopen("i.txt", "r", stdin);
-        freopen("o.txt", "w", stdout);
+        
         string s;
         cin >> s;
         cout << abcsubseq(s, "", 0);
