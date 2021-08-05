@@ -2,7 +2,7 @@
 using namespace std;
 
 //max water weight
-int waterweight(vector<int>arr)
+int maxwaterweight(vector<int>arr)
 {
     int l = arr[0];
     int li = 0;

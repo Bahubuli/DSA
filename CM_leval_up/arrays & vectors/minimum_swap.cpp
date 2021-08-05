@@ -1,74 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//basix nlogn solution
-vector<int> subarraysort(vector<int>arr)
+void swap(vector<int>&arr,int i,int j)
 {
-    vector<int> b(arr);
-    sort(arr.begin(), arr.end());
-    int i = 0;
-    int n = arr.size();
-    while(i<n and arr[i]==b[i])
-    {
-        i++;
-    }
-    int j = arr.size() - 1;
-    while(j>=0 and arr[j]==b[j])
-    {
-        j--;
-    }
-    if(i==arr.size())
-        return {-1,-1};
-
-
-        return{i,j};
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
 }
-bool outoforder(vector<int>arr,int i)
+
+int minimumnumswaps(vector<int> arr,int n)
 {
-    int x = arr[i];
-    if(i==0)
+    int ans = 0;
+    unordered_map<int, int> m;
+    vector<int> temp = arr;
+    sort(temp.begin(), temp.end());
+
+    for(int i=0;i<n;i++)
     {
-        return x > arr[i];
+        m[arr[i]]=i;
     }
-    if(i==arr.size()-1)
-        return x < arr[i - 1];
-    return x > arr[i+1] or x < arr[i-1];
+
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]!=temp[i])
+        {
+            ans++;
+            int init = arr[i];
+            swap(arr, i, m[temp[i]]);
+
+            m[init] = m[temp[i]];
+            m[temp[i]] = i;
+        }
+    }
+    return ans;
 }
 
-pair<int, int> subarrsort(vector<int> arr)
-    {
-        int smallest = INT_MAX;
-        int largest = INT_MIN;
-        for (int i = 0; i < arr.size(); i++)
-        {
-            int x = arr[i];
-            if (outoforder(arr, i))
-            {
-                smallest = min(smallest, x);
-                largest = max(largest, x);
-            }
-        }
-        if (smallest == INT_MAX)
-            return {-1, -1};
-        int left = 0;
-        while (arr[left] <= smallest)
-        {
-            left++;
-        }
-        int right = arr.size() - 1;
-        while (arr[right] >= largest)
-        {
-            right--;
-        }
-        return {left, right};
-}
-        int main()
-        {
-            int g;
-            // freopen("i.txt", "r", stdin);
-            // freopen("o.txt", "w", stdout);
-            cin >> g;
-            vector<int> arr{1,2,3,4,5,8,6,7,9,10,11};
-            auto res=subarrsort(arr);
-            cout << res.first << " " << res.second << endl;
+int main()
+{
+
+        vector<int> arr{1,5,4,3,2};
+        cout << minimumnumswaps(arr,arr.size());
 }
