@@ -212,104 +212,83 @@ Node *findmindnode(Node *head)
     return p1;
 }
 
-
-/*
-void *deleteeverynnodes(Node *head, int n, int m)
+Node *swapnodes(Node *head,int n1,int n2)
 {
-    Node *temp = head;
-    while (temp != NULL )
-    {
+    Node *p1=head, *p2=head, *c1=head, *c2=head,*temp;
 
-        int cn = n;
-        int cm = m;
-        if(n==1 && temp!=head)
-            temp = temp->next;
-        else
+    for(int i=1;i<n1;i++)
+    {
+        p1 = p1->next;
+    }
+        c1 = p1->next;
+    for (int i = 1; i < n2; i++)
+    {
+        p2 = p2->next;
+    }
+        c2 = p2->next;
+
+
+        if(n1!=0 && n2!=0)
         {
-            while (cn >1  && temp != NULL)
+        p2->next = c1;
+        p1->next = c2;
+
+        temp = c1->next;
+
+        c1->next = c2->next;
+        c2->next = temp;
+        }
+
+        else if(n1-n2>=2 || n2-n1>=2)
+        {
+            if(n1==0)
             {
-                cn--;
-                temp = temp->next;
+                c1 = p1;
+                temp = c1->next;
+                c1->next = c2->next;
+                c2->next = temp;
+                head = c2;
+                p2->next=c1;
+
+            }
+            if (n2 == 0)
+            {
+                c2 = p2;
+                temp = c2->next;
+                c2->next = c1->next;
+                c1->next = temp;
+                head = c1;
+                p1->next = c2;
             }
         }
-        cout << temp->data << "... ";
-        while (cm > 0 and temp != NULL and temp->next !=NULL)
-        {
 
-            Node *dn = temp->next;
-            temp->next = temp->next->next;
-            delete dn;
-            cm--;
-        }
-        if (n == 1 && temp == head)
-            temp = temp->next;
-    }
-    return;
-}
-*/
-void skipmdeleten(struct Node *head, int M, int N)
-{
-  Node *curr = head, *mthnode, *nthnode, *t;
-
-    // The main loop that traverses through the whole list
-    while (curr != NULL)
-    {
-
-        // Skip M nodes
-        if (M != 0)
-        {
-            M--;
-            if (M == 0)
-                mthnode = curr;
-        }
         else
         {
-            N--;
-            if (N == 0)
+            if(n1==0)
             {
-                nthnode = curr;
-                break;
+                p1->next = c2->next;
+                c2->next = p1;
+                head = c2;
+                return head;
             }
-        }
-        curr = curr->next;
-
-    }
-    if (curr == NULL)
-        return;
-    mthnode->next = nthnode->next;
-    nthnode->next = NULL;
-}
 
 
-void skipMdeleteN(Node *head, int M, int N)
-{
-    Node *curr = head, *t;
-    int count;
+            if(n2==0)
+            {
+                p2->next = c1->next;
+                c1->next = p2;
+                head = c1;
+                return head;
+            }
 
-    while (curr)
-    {
-
-        for (count = 1; count < M &&
-                        curr != NULL;
-             count++)
-            curr = curr->next;
-
-        if (curr == NULL)
-            return;
-
-        t = curr->next;
-        for (count = 1; count <= N && t != NULL; count++)
-        {
-            Node *temp = t;
-            t = t->next;
-            free(temp);
         }
 
-        curr->next = t;
 
-        curr = t;
-    }
+
+
+        return head;
 }
+
 
 
 int main()
@@ -322,6 +301,6 @@ int main()
     Node *head = takeInput();
 
     //cout << findmindnode(head)->data << endl;
-    skipmdeleten(head, 1, 0);
+    head = swapnodes(head, 1, 0);
     print(head);
 }
