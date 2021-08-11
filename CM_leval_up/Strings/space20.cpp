@@ -11,6 +11,7 @@ void replacespaces(char *str)
             spaces++;
         }
     }
+    
     int idx = strlen(str) + 2 * spaces;
 
     str[idx] = '\0';
@@ -33,7 +34,6 @@ void replacespaces(char *str)
 
 
 }
-
 int main()
 {
     char input[1000];
