@@ -1,44 +1,45 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main()
+char *mystrtok(char *str,char delim)
 {
+    static char *input = NULL;
+    if(str!=NULL)
+        input = str;
+    if(input==NULL)
+        return NULL;
 
-
-//using sstream class
-/*
- string in;
-    getline(cin, in);
-    stringstream ss(in);
-
-    string token;
-    vector<string> tokens;
-    while(getline(ss,token,' '))
+    char *token = new char[strlen(input) + 1];
+    int i = 0;
+    for(; input[i]!='\0';i++)
     {
-        tokens.push_back(token);
+        if(input[i]!=delim)
+        {
+            token[i] = input[i];
+        }
+        else
+        {
+            token[i] = '\0';
+            input = input + i + 1;
+            return token;
+        }
     }
-
-    for(auto s:tokens)
-        cout << s << endl;
-        */
-//using strtok
-char inp[10000];
-cin.getline(inp, 1000);
-
-// cout << strtok(inp, " ") << endl;
-// cout << strtok(NULL, " ") << endl;
-// cout << strtok(NULL, " ") << endl;
-// cout << strtok(NULL, " ") << endl;
-
-// this will give us the first 4 words after tokenisation
-
-char *token = strtok(inp, " ");
-
-while(token!=NULL)
-{
-    cout << token << endl;
-    token = strtok(NULL, " ");
-
+    token[i] = '\0';
+    input = NULL;
+    return token;
 }
 
+
+
+int main()
+{
+    char str[100];
+    cin.getline(str, 100);
+
+    char *token = mystrtok(str, ' ');
+    while(token!=NULL)
+    {
+        cout << token << endl;
+        token = mystrtok(NULL, ' ');
+    }
 }

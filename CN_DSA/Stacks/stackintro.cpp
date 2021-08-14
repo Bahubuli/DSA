@@ -7,11 +7,12 @@ class stackusingarray{
     int capacity;
 
 public:
-    stackusingarray(int totalsize)
+    stackusingarray()
     {
-        data = new int[totalsize];
+        capacity = 4;
+        data = new int[capacity];
         nextIndex = 0;
-        capacity = totalsize;
+
     }
 
     int size()
@@ -26,10 +27,14 @@ public:
     {
         if(nextIndex == capacity)
         {
-            cout << "stack full" << endl;
-            return;
+              int *newdata = new int[2 * capacity];
+                for(int i=0;i<capacity;i++)
+                    newdata[i] = data[i];
+                delete[] data;
+                data = newdata;
         }
-        cout << "capacity = " << capacity << " nxtibt " << nextIndex << endl;
+        capacity = capacity * 2;
+        //cout << "capacity = " << capacity << " nxtibt " << nextIndex << endl;
         data[nextIndex] = el;
         nextIndex++;
     }
@@ -58,7 +63,7 @@ int main()
         // freopen("i.txt", "r", stdin);
         // freopen("o.txt", "w", stdout);
 
-        stackusingarray s(5);
+        stackusingarray s;
         s.push(10);
         s.push(20);
         s.push(30);
@@ -68,7 +73,7 @@ int main()
         s.push(70);
         s.push(80);
         cout << s.size() << endl;
-        cout << s.top() << endl;
+      
 
         cout << s.pop() << endl;
         cout << s.pop() << endl;
