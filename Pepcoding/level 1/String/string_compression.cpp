@@ -1,25 +1,16 @@
+// { Driver Code Starts
+//Initial Template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
-string compress1(string s)
+// } Driver Code Ends
+//User function Template for C++
+
+//Complete this function
+string reSize(string s)
 {
-    string s2 = "";
-
-    for (int i = 1; i < s.length(); i++)
-    {
-        if (s[i - 1] != s[i])
-            s2 = s2 + s[i - 1];
-    }
-    if (s2[s2.length() - 1] != s[s.length() - 1])
-    {
-        s2 = s2 + s[s.length() - 1];
-    }
-
-    return s2;
-}
-
-string compress2(string s)
-{
+    //Your code here
     string s2 = "";
     int i = 1, j = 0, count = 1;
 
@@ -32,7 +23,7 @@ string compress2(string s)
             continue;
         }
         s2 = s2 + s[i - 1];
-        if (count > 1)
+        if (count >= 1)
             s2 = s2 + to_string(count);
         count = 1;
         i++;
@@ -40,16 +31,22 @@ string compress2(string s)
     if (s2[s2.length() - 1] != s[s.length() - 1])
         s2 = s2 + s[s.length() - 1];
 
-    if (count > 1)
+    if (count >= 1)
         s2 = s2 + to_string(count);
     return s2;
 }
 
+// { Driver Code Starts.
+
 int main()
 {
-    string s = "aabbbcaaddddeee";
-
-    //getline(cin, s);
-    cout << compress1(s) << endl;
-    cout << compress2(s) << endl;
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        string s;
+        cin >> s;
+        cout << reSize(s) << endl;
+    }
+    return 0;
 }
