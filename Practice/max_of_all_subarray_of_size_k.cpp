@@ -11,34 +11,11 @@ public:
     //Function to find maximum of each subarray of size k.
     vector<int> max_of_subarrays(int *arr, int n, int k)
     {
-        // your code here
-        deque<int> dq;
+
         vector<int> ans;
-        int i = 0, j = 0;
 
-        while (j < n)
-        {
-            if (j < k)
-            {
-                while (!dq.empty() && q.front() <= arr[j])
-                {
-                    q.pop();
-                }
-                q.push(arr[j]);
-            }
+        
 
-            if (j - i + 1 == k)
-            {
-                ans.push_back(q.front());
-
-
-                q.push(arr[j]);
-
-                i++;
-            }
-
-            j++;
-        }
         return ans;
     }
 };
@@ -48,8 +25,7 @@ public:
 int main()
 {
 
-    int t;
-    cin >> t;
+
 
 
         int n, k;
