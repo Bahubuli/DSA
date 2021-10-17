@@ -88,9 +88,12 @@ void printreelevelwise(TreeNode<int>* root)
     {
         TreeNode<int> *curr = pendingnodes.front();
         pendingnodes.pop();
-        cout << curr->data << endl;
+        cout << curr->data << " : ";
+        for(int i=0;i<curr->children.size();i++)
+            cout << curr->children[i]->data << " ";
         for(int i=0;i<curr->children.size();i++)
             pendingnodes.push(curr->children[i]);
+        cout << endl;
     }
 
 }
