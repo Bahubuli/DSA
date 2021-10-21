@@ -303,11 +303,67 @@ bool structurally_identical(TreeNode<int>* root1,TreeNode<int>* root2)
     }
     return ans;
 }
+// first > element levelwise
 
-//1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
+int nextlargerlevelwise(TreeNode<int>*root,int x)
+{
+    if(root==NULL)
+        return -1;
+    if(root->data>x)
+        return root->data;
+
+    queue<TreeNode<int> *> q;
+    q.push(root);
+    int ans = -1;
+    while(!q.empty())
+    {
+        TreeNode<int> *curr = q.front();
+        for (int i = 0; i < curr->children.size(); i++)
+        {
+            q.push(curr->children[i]);
+        }
+        for (int i = 0; i < curr->children.size(); i++)
+        {
+            if(curr->children[i]->data>x)
+                return curr->children[i]->data;
+        }
+
+    q.pop();
+    }
+    return ans;
+}
+
+// element which is just > x from all elements of tree
+int secondlargest(TreeNode<int>* root,int x)
+{
+    int ans = INT_MAX;
+    if(root->data>x)
+        ans = root->data;
+    for(int i=0;i<root->children.size();i++)
+    {
+        int res = secondlargest(root->children[i], x);
+        ans = min(ans, res);
+    }
+    return ans;
+}
+
+void replacewithdepth(TreeNode<int> *root,int x)
+{
+    if(root ==NULL)
+        return;
+
+    root->data = x;
+    for(int i=0;i<root->children.size();i++)
+    {
+        replacewithdepth(root->children[i], x + 1);
+    }
+}
+
+
+//1 3 12 22 34 2 55 66 2 77 58 0 0 0 0 1 57 0
 int main()
 {
-    TreeNode<int> *root1 = takeinputlevelwise();
-    TreeNode<int> *root2 = takeinputlevelwise();
-    cout << structurally_identical(root1, root2);
+    TreeNode<int> *root = takeinputlevelwise();
+    replacewithdepth(root, 0);
+    printreelevelwise(root);
 }
