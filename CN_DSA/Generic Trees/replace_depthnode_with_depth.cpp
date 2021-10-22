@@ -347,6 +347,18 @@ int secondlargest(TreeNode<int>* root,int x)
     return ans;
 }
 
+void replacewithdepth(TreeNode<int> *root,int x)
+{
+    if(root ==NULL)
+        return;
+
+    root->data = x;
+    for(int i=0;i<root->children.size();i++)
+    {
+        replacewithdepth(root->children[i], x + 1);
+    }
+}
+
 
 //1 3 12 22 34 2 55 66 2 77 58 0 0 0 0 1 57 0
 int main()
