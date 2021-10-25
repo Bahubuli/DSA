@@ -1,4 +1,4 @@
-  #include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 template<typename T>
@@ -157,53 +157,67 @@ void postorder(BtNode<int>* root)
     cout << root->data << " ";
 }
 
-BtNode<int> *buildtreehelper(int *in,int *pre,int inS, int inE,int preS,int preE)
+void inorder(BtNode<int> *root)
 {
-    if(inE<inS)
-        return NULL;
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
 
-    int rootD = pre[preS];
-    BtNode<int> *root = new BtNode<int>(rootD);
 
-    int ridx = -1;
-    for(int i=inS;i<=inE;i++)
+int diameter(BtNode<int>* root)
+{
+    if(root==NULL)
+        return 0;
+
+    int res1 = height(root->left) + height(root->right);
+    int res2 = diameter(root->left);
+    int res3 = diameter(root->right);
+
+    return max(res1, max(res2, res3));
+}
+/*
+time complexity = n*h
+in case of balanced bt = nlogn
+in case of flat bt = n*n
+*/
+
+pair<int ,int > heightdiameter(BtNode<int>* root)
+{
+    if(root==NULL)
     {
-        if(in[i]==rootD)
-            {
-                ridx = i;
-                break;
-            }
+        pair<int, int> p;
+        p.first = 0;
+        p.second = 0;
+        return p;
     }
 
+    pair<int, int> lres = heightdiameter(root->left);
+    pair<int, int> rres = heightdiameter(root->right);
 
+    int ld = lres.second;
+    int lh = lres.first;
+    int rd = rres.second;
+    int rh = rres.first;
 
-    int linS = inS;
-    int linE = ridx-1;
-    int lpreS = preS + 1;
-    int lpreE = lpreS + (linE - linS);
-    int rpreS = lpreE+1;
-    int rpreE = preE;
-    int rinS = ridx+1;
-    int rinE = inE;
+    int h = 1 + max(lh, rh);
+    int d = max(lh + rh, max(ld, rd));
 
-
-    root->left = buildtreehelper(in, pre, linS, linE, lpreS, lpreE);
-    root->right = buildtreehelper(in, pre, rinS, rinE, rpreS, rpreE);
-    return root;
+    pair<int, int> p;
+    p.first = h;
+    p.second = d;
+    return p;
 }
+// time complexity o(n) because we are using pairs
 
-BtNode<int> *buildtree(int *in, int *pre, int size)
-{
-    return buildtreehelper(in, pre, 0, size - 1, 0, size - 1);
-}
+
 
 //  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
 
-
 int main()
 {
-    int in[] = {4, 2, 5, 1, 8, 6, 9, 3, 7};
-    int pre[] = {1, 2, 4, 5, 3, 6, 8, 9, 7};
-    BtNode<int>* root = buildtree(in, pre, 9);
+    BtNode<int> *root = takeinputlw();
     printtreelw(root);
 }

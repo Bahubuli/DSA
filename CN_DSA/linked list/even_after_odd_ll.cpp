@@ -40,13 +40,14 @@ Node *takeInput()
 }
 
 
-void print(Node * head)
+void printll(Node * head)
 {
     while(head!=NULL)
     {
         cout << head->data << " ";
         head = head->next;
     }
+    cout << endl;
 }
 
 Node* insertnode( Node *head,int i,int data)\
@@ -335,5 +336,5 @@ Node *evenafterodd(Node *head)
 
         //cout << findmindnode(head)->data << endl;
         head = evenafterodd(head);
-        print(head);
+        printll(head);
 }

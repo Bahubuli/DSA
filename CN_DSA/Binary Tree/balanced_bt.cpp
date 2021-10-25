@@ -1,4 +1,4 @@
-  #include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 template<typename T>
@@ -157,53 +157,140 @@ void postorder(BtNode<int>* root)
     cout << root->data << " ";
 }
 
-BtNode<int> *buildtreehelper(int *in,int *pre,int inS, int inE,int preS,int preE)
+void inorder(BtNode<int> *root)
 {
-    if(inE<inS)
-        return NULL;
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
 
-    int rootD = pre[preS];
-    BtNode<int> *root = new BtNode<int>(rootD);
 
-    int ridx = -1;
-    for(int i=inS;i<=inE;i++)
+int diameter(BtNode<int>* root)
+{
+    if(root==NULL)
+        return 0;
+
+    int res1 = height(root->left) + height(root->right);
+    int res2 = diameter(root->left);
+    int res3 = diameter(root->right);
+
+    return max(res1, max(res2, res3));
+}
+/*
+time complexity = n*h
+in case of balanced bt = nlogn
+in case of flat bt = n*n
+*/
+
+pair<int ,int > heightdiameter(BtNode<int>* root)
+{
+    if(root==NULL)
     {
-        if(in[i]==rootD)
-            {
-                ridx = i;
-                break;
-            }
+        pair<int, int> p;
+        p.first = 0;
+        p.second = 0;
+        return p;
     }
 
+    pair<int, int> lres = heightdiameter(root->left);
+    pair<int, int> rres = heightdiameter(root->right);
 
+    int ld = lres.second;
+    int lh = lres.first;
+    int rd = rres.second;
+    int rh = rres.first;
 
-    int linS = inS;
-    int linE = ridx-1;
-    int lpreS = preS + 1;
-    int lpreE = lpreS + (linE - linS);
-    int rpreS = lpreE+1;
-    int rpreE = preE;
-    int rinS = ridx+1;
-    int rinE = inE;
+    int h = 1 + max(lh, rh);
+    int d = max(lh + rh, max(ld, rd));
 
-
-    root->left = buildtreehelper(in, pre, linS, linE, lpreS, lpreE);
-    root->right = buildtreehelper(in, pre, rinS, rinE, rpreS, rpreE);
-    return root;
+    pair<int, int> p;
+    p.first = h;
+    p.second = d;
+    return p;
 }
+// time complexity o(n) because we are using pairs
 
-BtNode<int> *buildtree(int *in, int *pre, int size)
+pair<int,int> minmax(BtNode<int>* root)
 {
-    return buildtreehelper(in, pre, 0, size - 1, 0, size - 1);
+    if(root==NULL)
+    {
+        pair<int, int> base;
+        base.first = INT_MAX;
+        base.second = INT_MIN;
+        return base;
+    }
+
+    pair<int, int> res1 = minmax(root->left);
+    pair<int, int> res2 = minmax(root->right);
+
+    int lmin = res1.first;
+    int lmax = res1.second;
+    int rmin = res2.first;
+    int rmax = res2.second;
+
+    pair<int, int> ans;
+
+    ans.first = min(min(lmin, rmin), root->data);
+    ans.second = max(max(lmax, rmax), root->data);
+
+    return ans;
 }
 
-//  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
+int sumnodes(BtNode<int>* root)
+{
+    if(root==NULL)
+        return 0;
+    return root->data + sumnodes(root->left) + sumnodes(root->right);
+}
 
+bool isbalanced(BtNode<int>* root)
+{
+    if(root==NULL)
+        return true;
+    int lh = height(root->left);
+    int rh = height(root->right);
+
+    if(max(lh,rh)-min(lh,rh)>1)
+    return false;
+    bool res1= true;
+    bool res2 = isbalanced(root->left);
+    bool res3 = isbalanced(root->right);
+
+    return min(min(res2, res3), res1);
+}
+
+pair<bool,int> isbalancedheight(BtNode<int>* root)
+{
+    if(root==NULL)
+    {
+        pair<bool, int> base;
+        base.first = true;
+        base.second = 0;
+        return base;
+    }
+    pair<bool, int> res1;
+    res1.first = true;
+    pair<bool, int> res2 = isbalancedheight(root->left);
+    pair<bool, int> res3 = isbalancedheight(root->right);
+
+    if(max(res2.second,res3.second)-min(res2.second,res3.second)>1)
+        res1.first = false;
+    res1.second = 1 + max(res2.second, res3.second);
+
+    pair<bool, int> ans;
+    ans.first = min(min(res2.first, res3.first), res1.first);
+    ans.second = 1 + max(res2.second, res3.second);
+
+    return ans;
+}
+//  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
 
 int main()
 {
-    int in[] = {4, 2, 5, 1, 8, 6, 9, 3, 7};
-    int pre[] = {1, 2, 4, 5, 3, 6, 8, 9, 7};
-    BtNode<int>* root = buildtree(in, pre, 9);
+    BtNode<int> *root = takeinputlw();
     printtreelw(root);
+    cout << "======================" << endl;
+    cout << isbalancedheight(root).first << endl;
 }

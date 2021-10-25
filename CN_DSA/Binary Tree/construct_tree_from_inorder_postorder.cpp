@@ -1,4 +1,4 @@
-  #include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 template<typename T>
@@ -157,12 +157,21 @@ void postorder(BtNode<int>* root)
     cout << root->data << " ";
 }
 
-BtNode<int> *buildtreehelper(int *in,int *pre,int inS, int inE,int preS,int preE)
+void inorder(BtNode<int> *root)
+{
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+BtNode<int> *buildtreehelper(int *in,int *pre,int inS, int inE,int posS,int posE)
 {
     if(inE<inS)
         return NULL;
 
-    int rootD = pre[preS];
+    int rootD = pre[posE];
     BtNode<int> *root = new BtNode<int>(rootD);
 
     int ridx = -1;
@@ -179,16 +188,16 @@ BtNode<int> *buildtreehelper(int *in,int *pre,int inS, int inE,int preS,int preE
 
     int linS = inS;
     int linE = ridx-1;
-    int lpreS = preS + 1;
-    int lpreE = lpreS + (linE - linS);
-    int rpreS = lpreE+1;
-    int rpreE = preE;
+    int lposS = posS;
+    int lposE = lposS + (linE - linS);
+    int rposS = lposE+1;
+    int rposE = posE-1;
     int rinS = ridx+1;
     int rinE = inE;
 
 
-    root->left = buildtreehelper(in, pre, linS, linE, lpreS, lpreE);
-    root->right = buildtreehelper(in, pre, rinS, rinE, rpreS, rpreE);
+    root->left = buildtreehelper(in, pre, linS, linE, lposS, lposE);
+    root->right = buildtreehelper(in, pre, rinS, rinE, rposS, rposE);
     return root;
 }
 
@@ -203,7 +212,8 @@ BtNode<int> *buildtree(int *in, int *pre, int size)
 int main()
 {
     int in[] = {4, 2, 5, 1, 8, 6, 9, 3, 7};
-    int pre[] = {1, 2, 4, 5, 3, 6, 8, 9, 7};
-    BtNode<int>* root = buildtree(in, pre, 9);
+    int pos[] = {4,5,2,8,9,6,7,3,1};
+    BtNode<int>* root = buildtree(in, pos, 9);
+
     printtreelw(root);
 }

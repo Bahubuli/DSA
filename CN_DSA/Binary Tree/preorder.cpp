@@ -153,7 +153,6 @@ void preorder(BtNode<int>* root)
         return;
     cout << root->data << " ";
     preorder(root->left);
-
     preorder(root->right);
 }
 //  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
