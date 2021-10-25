@@ -440,12 +440,88 @@ void printpairsim(BtNode<int>* root,int s)
 
     }
 }
+int findlca(BtNode<int>* root,int x,int y)
+{
+    if(root==NULL)
+        return INT_MIN;
+
+    if (root->data == x || root->data == y)
+        return root->data;
+
+    if (root->left == NULL && root->right == NULL)
+        return INT_MIN;
+
+    int lres = findlca(root->left, x, y);
+    int rres = findlca(root->right, x, y);
+
+    if(lres!=INT_MIN && rres!=INT_MIN)
+    {
+        return root->data;
+    }
+
+    return max(lres, rres);
+}
+
+BtNode<int>* searchinbst(BtNode<int>* root,int x)
+{
+    if(root==NULL)
+        return NULL;
+    if(root->data == x)
+        return root;
+
+    if (x < root->data)
+        return searchinbst(root->left, x);
+    if(x>root->data)
+        return searchinbst(root->right, x);
+
+
+}
+
+//working but the order of output is not sorted.
+void printinrange(BtNode<int>* root, int a,int b)
+{
+    if(root==NULL )
+        return;
+    if(root->data<=b && root->data>=a)
+            cout << root->data<<" ";
+
+    if (root->data > a && root->data < b)
+    {
+        printinrange(root->left, a, b);
+        printinrange(root->right, a, b);
+    }
+    if (root->data < a)
+        printinrange(root->right, a, b);
+    if (root->data > b)
+        printinrange(root->left, a, b);
+
+}
+int minimumt(BtNode<int>* root)
+{
+  if(root==NULL)
+      return INT_MAX;
+  return min(root->data, min(minimumt(root->left), minimumt(root->right)));
+}
+int maximumt(BtNode<int>* root)
+{
+    if(root==NULL)
+        return INT_MIN;
+    return max(root->data,max(maximumt(root->left),maximumt(root->right)));
+}
+//(n2) solution
+bool isbst(BtNode<int>* root)
+{
+    if(root==NULL)
+        return true;
+    int lm = maximumt(root->left);
+    int rm = minimumt(root->right);
+    bool output = (root->data > lm) && (root->data<=rm) && isbst(root->left) && isbst(root->right);
+    return output;
+}
 
 //  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
 int main()
 {
     BtNode<int> *root = takeinputlw();
-    int s;
-    cin >> s;
-    printpairsim(root, s);
+    cout << isbst(root) << endl;
 }

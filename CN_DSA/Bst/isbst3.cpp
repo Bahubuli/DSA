@@ -440,12 +440,134 @@ void printpairsim(BtNode<int>* root,int s)
 
     }
 }
+int findlca(BtNode<int>* root,int x,int y)
+{
+    if(root==NULL)
+        return INT_MIN;
+
+    if (root->data == x || root->data == y)
+        return root->data;
+
+    if (root->left == NULL && root->right == NULL)
+        return INT_MIN;
+
+    int lres = findlca(root->left, x, y);
+    int rres = findlca(root->right, x, y);
+
+    if(lres!=INT_MIN && rres!=INT_MIN)
+    {
+        return root->data;
+    }
+
+    return max(lres, rres);
+}
+
+BtNode<int>* searchinbst(BtNode<int>* root,int x)
+{
+    if(root==NULL)
+        return NULL;
+    if(root->data == x)
+        return root;
+
+    if (x < root->data)
+        return searchinbst(root->left, x);
+    if(x>root->data)
+        return searchinbst(root->right, x);
+
+
+}
+
+//working but the order of output is not sorted.
+void printinrange(BtNode<int>* root, int a,int b)
+{
+    if(root==NULL )
+        return;
+    if(root->data<=b && root->data>=a)
+            cout << root->data<<" ";
+
+    if (root->data > a && root->data < b)
+    {
+        printinrange(root->left, a, b);
+        printinrange(root->right, a, b);
+    }
+    if (root->data < a)
+        printinrange(root->right, a, b);
+    if (root->data > b)
+        printinrange(root->left, a, b);
+
+}
+int minimumt(BtNode<int>* root)
+{
+  if(root==NULL)
+      return INT_MAX;
+  return min(root->data, min(minimumt(root->left), minimumt(root->right)));
+}
+int maximumt(BtNode<int>* root)
+{
+    if(root==NULL)
+        return INT_MIN;
+    return max(root->data,max(maximumt(root->left),maximumt(root->right)));
+}
+//(n2) solution
+bool isbst(BtNode<int>* root)
+{
+    if(root==NULL)
+        return true;
+    int lm = maximumt(root->left);
+    int rm = minimumt(root->right);
+    bool output = (root->data > lm) && (root->data<=rm) && isbst(root->left) && isbst(root->right);
+    return output;
+}
+
+class isbstreturn
+{
+    public:
+        bool isbst;
+        int minimum;
+        int maximum;
+};
+
+isbstreturn isbst2(BtNode<int>* root)
+{
+    if(root==NULL)
+    {
+        isbstreturn base;
+        base.isbst = true;
+        base.maximum = INT_MIN;
+        base.minimum = INT_MAX;
+        return base;
+    }
+    isbstreturn lres = isbst2(root->left);
+    isbstreturn rres = isbst2(root->right);
+
+    int minm = min(root->data, min(lres.minimum, rres.minimum));
+    int maxm = max(root->data, max(lres.maximum, rres.maximum));
+
+    isbstreturn ans;
+   bool res = (root->data > lres.maximum) && (root->data <= rres.minimum) && lres.isbst && rres.isbst;
+    ans.maximum = maxm;
+    ans.minimum = minm;
+    ans.isbst = res;
+
+    return ans;
+}
+
+bool isbst3(BtNode<int>* root,int mn = INT_MIN,int mx = INT_MAX)
+{
+    if(root==NULL)
+        return true;
+    if(root->data<mn || root->data >mx)
+        return false;
+
+    bool lres = isbst3(root->left, mn, root->data - 1);
+    bool rres = isbst3(root->right, root->data , mx);
+
+    return lres && rres;
+}
 
 //  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
 int main()
 {
     BtNode<int> *root = takeinputlw();
-    int s;
-    cin >> s;
-    printpairsim(root, s);
+    cout << isbst3(root) << endl;
 }

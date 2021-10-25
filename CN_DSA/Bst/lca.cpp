@@ -440,12 +440,35 @@ void printpairsim(BtNode<int>* root,int s)
 
     }
 }
+int findlca(BtNode<int>* root,int x,int y)
+{
+    if(root==NULL)
+        return INT_MIN;
+
+    if (root->data == x || root->data == y)
+        return root->data;
+
+    if (root->left == NULL && root->right == NULL)
+        return INT_MIN;
+
+    int lres = findlca(root->left, x, y);
+    int rres = findlca(root->right, x, y);
+
+    if(lres!=INT_MIN && rres!=INT_MIN)
+    {
+        return root->data;
+    }
+
+    return max(lres, rres);
+}
 
 //  1 2 3 4 5 6 7 -1 -1  -1 -1 8 9 -1 -1 -1 -1 -1 -1
 int main()
 {
     BtNode<int> *root = takeinputlw();
-    int s;
-    cin >> s;
-    printpairsim(root, s);
+    int x, y;
+    cin >> x >> y;
+    levelorderasitis(root);
+    cout << "==========================" << endl;
+    cout << findlca(root, x, y);
 }
