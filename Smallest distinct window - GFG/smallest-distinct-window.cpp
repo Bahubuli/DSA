@@ -30,13 +30,11 @@ class Solution{
                 if(hash[s[j]]==0) c++;
                 hash[s[j]]++;
                 j++;
-                // cout<<c<<endl;
             }
             else
             {
                 ans = min(ans,j-i);
                 
-                // cout<<i<<" "<<j<<endl;
                 hash[s[i]]--;
                 if(hash[s[i]]==0) c--;
                 i++;
