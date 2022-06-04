@@ -14,7 +14,7 @@ public:
         vector<int>indegree(N+1);
         
         for(int i=0;i<M;i++){
-            adj[mat[i] [00]].push_back(mat[i][1]);
+            adj[mat[i] [0]].push_back(mat[i][1]);
             indegree[mat[i][1]]++;
             
         }
