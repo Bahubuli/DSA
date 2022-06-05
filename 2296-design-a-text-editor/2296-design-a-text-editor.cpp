@@ -1,60 +1,77 @@
 class TextEditor {
+public:
     stack<char> left;
     stack<char> right;
-public:
     TextEditor() {
         
     }
     
-    void addText(string text) {
-        for(auto &c : text){
-            left.push(c);
-        }
+    void addText(string text) 
+    {
+        for(auto &c:text) left.push(c);
+        
     }
     
-    int deleteText(int k) {
-        int cnt=0;
-        while(!left.empty() and k>0){
+    int deleteText(int k) 
+    {
+        int c=0;
+        while(left.size() && k)
+        {
             left.pop();
-            cnt++;
+            c++;
             k--;
         }
-        return cnt;
+        return c;
+        
     }
     
-    string cursorLeft(int k) {
-        while(!left.empty() and k>0){
-            char c = left.top();left.pop();
+    string cursorLeft(int k) 
+    {
+        while(left.size() && k)
+        {
+            char c = left.top(); 
+            left.pop();
             right.push(c);
             k--;
         }
-		// returning the last min(10, len) characters to the left of the cursor
-        return cursorShiftString();
+        return cursorstring();  
     }
     
-    string cursorRight(int k) {
-        while(!right.empty() and k>0){
-            char c = right.top();right.pop();
+    string cursorRight(int k) 
+    {
+        while(right.size() && k)
+        {
+            char c = right.top();
+            right.pop();
             left.push(c);
             k--;
         }
-		// returning the last min(10, len) characters to the left of the cursor
-        return cursorShiftString();
+        return cursorstring();  
     }
     
-	// function to return the last min(10, len) characters to the left of the cursor
-    string cursorShiftString(){
-        string rtn = "";
-        int cnt=10;
-        while(!left.empty() and cnt>0){
-            char c = left.top();left.pop();
-            rtn += c;
-            cnt--;
+    string cursorstring()
+    {
+        string ans = "";
+        int c = 10;
+        while(left.size() && c)
+        {
+            ans+=left.top();
+            left.pop();
+            c--;
         }
-        reverse(rtn.begin(),rtn.end());
-        for(int i=0;i<rtn.size();i++){
-            left.push(rtn[i]);
-        }
-        return rtn;
+        reverse(ans.begin(),ans.end());
+        for(int i=0;i<ans.size();i++)
+            left.push(ans[i]);
+        
+        return ans;
     }
 };
+
+/**
+ * Your TextEditor object will be instantiated and called as such:
+ * TextEditor* obj = new TextEditor();
+ * obj->addText(text);
+ * int param_2 = obj->deleteText(k);
+ * string param_3 = obj->cursorLeft(k);
+ * string param_4 = obj->cursorRight(k);
+ */
