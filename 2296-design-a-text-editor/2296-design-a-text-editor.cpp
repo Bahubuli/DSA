@@ -25,33 +25,17 @@ public:
             ll.erase(curr--);
         }
         curr++;
-        return c;
-        
+        return c;    
     }
     
-    string solve()
-    {
-        auto it = curr;
-        it--;
-        string ans = "";
-        int k = 10;
-        while(k-- && it!=ll.begin())
-        {
-            ans+= *(it--);
-        }
-        reverse(ans.begin(),ans.end());
-        return ans;
-    }
+   
     string cursorLeft(int k) 
     {
-        while(k-- )
+        while(k-- && curr!=ll.begin())
         {
-            auto prev = curr;
-            prev--;
-            if(prev==ll.begin()) break;
-            curr = prev;
+            curr--;
         }
-            
+        if(curr == ll.begin()) curr++;
         return solve();
         
     }
@@ -59,8 +43,18 @@ public:
     string cursorRight(int k) 
     {
         while(k-- && curr!=ll.end()) curr++;
-        return solve();
+        return solve();   
+    }
+     string solve()
+    {
+        auto it = curr;
+        it--;
+        string ans = "";
+        int k = 10;
+        while(k-- && it!=ll.begin())    ans+= *(it--);
         
+        reverse(ans.begin(),ans.end());
+        return ans;
     }
 };
 
