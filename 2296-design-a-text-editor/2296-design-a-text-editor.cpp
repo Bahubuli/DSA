@@ -1,60 +1,66 @@
 class TextEditor {
 public:
-    stack<char>left,right;
-    TextEditor() {
+    list<char>ll;
+    list<char>::iterator curr;
+    TextEditor() 
+    {
+        ll.clear();
+        ll.push_back('|');
+        curr = ll.end();
+        
     }
     
     void addText(string text) 
     {
-        for(auto &c:text) left.push(c);
+        ll.insert(curr,text.begin(),text.end());    
     }
     
     int deleteText(int k) 
     {
-        int ans = 0;
-        while(left.size() && k)
+        int c = 0;
+        curr--;
+        while(k-- && curr!=ll.begin())
         {
-            left.pop();
-            ans++;
-            k--;
+            c++;
+            ll.erase(curr--);
         }
-        return ans;
+        curr++;
+        return c;
+        
     }
     
+    string solve()
+    {
+        auto it = curr;
+        it--;
+        string ans = "";
+        int k = 10;
+        while(k-- && it!=ll.begin())
+        {
+            ans+= *(it--);
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
     string cursorLeft(int k) 
     {
-        while(left.size() && k)
+        while(k-- )
         {
-            right.push(left.top());
-            left.pop();
-            k--;
+            auto prev = curr;
+            prev--;
+            if(prev==ll.begin()) break;
+            curr = prev;
         }
-        return buildstring();
+            
+        return solve();
+        
     }
     
     string cursorRight(int k) 
     {
-        while(right.size() && k)
-        {
-            left.push(right.top());
-            right.pop();
-            k--;
-        }
-        return buildstring();
-    }
-    string buildstring()
-    {
-        int c = 10;
-        string ans="";
-        while(left.size() && c)
-        {
-            ans+=left.top();
-            left.pop();
-            c--;
-        }
-        reverse(ans.begin(),ans.end());
-        for(auto &c:ans) left.push(c);
-        return ans;
+        while(k-- && curr!=ll.end()) curr++;
+        return solve();
+        
     }
 };
 
