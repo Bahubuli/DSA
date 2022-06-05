@@ -1,58 +1,51 @@
 class TextEditor {
 public:
-    stack<char> left;
-    stack<char> right;
+    stack<char>left,right;
     TextEditor() {
-        
     }
     
     void addText(string text) 
     {
         for(auto &c:text) left.push(c);
-        
     }
     
     int deleteText(int k) 
     {
-        int c=0;
+        int ans = 0;
         while(left.size() && k)
         {
             left.pop();
-            c++;
+            ans++;
             k--;
         }
-        return c;
-        
+        return ans;
     }
     
     string cursorLeft(int k) 
     {
         while(left.size() && k)
         {
-            char c = left.top(); 
+            right.push(left.top());
             left.pop();
-            right.push(c);
             k--;
         }
-        return cursorstring();  
+        return buildstring();
     }
     
     string cursorRight(int k) 
     {
         while(right.size() && k)
         {
-            char c = right.top();
+            left.push(right.top());
             right.pop();
-            left.push(c);
             k--;
         }
-        return cursorstring();  
+        return buildstring();
     }
-    
-    string cursorstring()
+    string buildstring()
     {
-        string ans = "";
         int c = 10;
+        string ans="";
         while(left.size() && c)
         {
             ans+=left.top();
@@ -60,9 +53,7 @@ public:
             c--;
         }
         reverse(ans.begin(),ans.end());
-        for(int i=0;i<ans.size();i++)
-            left.push(ans[i]);
-        
+        for(auto &c:ans) left.push(c);
         return ans;
     }
 };
