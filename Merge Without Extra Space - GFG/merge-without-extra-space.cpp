@@ -9,23 +9,27 @@ class Solution{
         //Function to merge the arrays.
         void merge(long long arr1[], long long arr2[], int n, int m) 
         { 
-        long long gap = (n + m) / 2 + (n + m) % 2;
-    while(gap >= 1){
-        long long it1 = 0, it2 = gap;
-        while(it2 < n + m){
-            long long *cur1, *cur2;
-            
-            if(it1 >= n)    cur1 = &arr2[it1++ - n];
-            else    cur1 = &arr1[it1++];
-
-            if(it2 >= n)    cur2 = &arr2[it2++ - n];
-            else    cur2 = &arr1[it2++];
-    
-            if(*cur1 > *cur2)   swap(*cur1, *cur2);
-        }
-        if(gap == 1)    break;
-        gap = (gap / 2) + (gap % 2);
-    }
+            long long gap = (n+m)/2 + (n+m)%2;
+            while(gap>=1)
+            {
+                long long i=0,j=gap;
+                while(j<n+m)
+                {
+                  
+                    long long *x, *y;
+                    
+                    if(i>=n) x = &arr2[i++ - n];
+                    else  x = &arr1[i++];
+                    
+                    if(j>=n) y = &arr2[j++ - n];
+                    else  y = &arr1[j++];
+                    
+                    if(*x>*y) swap(*x,*y);
+                    
+                }
+                 if(gap==1) break;
+                gap = (gap/2) + (gap%2);
+            }
         } 
 };
 
