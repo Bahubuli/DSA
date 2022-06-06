@@ -13,20 +13,13 @@ class Solution
     public:
     long long countKdivPairs(int A[], int n, int k)
     {
-        map<long long ,long long> mp;
-        long long ans=0;
+        vector<long long> v(k,0);
+        long long ans = 0;
         for(int i=0;i<n;i++)
-        mp[A[i]%k]++;
-        
-        for(int i=1;i<k;i++)
         {
-            if(i!=k-i) ans+= mp[i]*mp[k-i];
-            else ans+= mp[i]*(mp[i]-1);
+            ans+= v[(k-(A[i]%k))%k];
+            v[A[i]%k]++;
         }
-        
-        ans = ans/2;
-        ans+= mp[0]*(mp[0]-1)/2;
-        
         return ans;
     }
 };
