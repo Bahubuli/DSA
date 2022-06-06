@@ -21,7 +21,7 @@ public:
             
             p1 = p1->next;
             p2 = p2->next;
-             if(p1==p2) return p1;
+             
         }
         return NULL;
         
