@@ -15,7 +15,7 @@ public:
         
         for(long long int i=0;i<n;i++)
         {
-            ans+= (((i+1)*a[i])* (n-i))%mod;
+            ans+= ((i+1)*(n-i)*a[i])%mod;
         }
         return ans%mod;
     }
