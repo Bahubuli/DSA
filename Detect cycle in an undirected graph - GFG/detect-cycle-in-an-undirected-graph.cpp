@@ -5,55 +5,55 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-    // Function to detect cycle in an undirected graph.
-    
-    bool bfs(int node, vector<int> adj[],vector<bool> &vis)
-    {
-        queue<pair<int,int>> q;
-        q.push({node,-1});
+   
+   bool bfs(int node,vector<int> adj[],vector<bool>&vis)
+   {
+       queue<pair<int,int>>q;
+       
+       q.push({node,-1});
+       
+       while(q.size())
+       {
+           int s= q.size();
+           
+           while(s--)
+           {
+               auto f = q.front();
+               q.pop();
+               
+               for(auto it: adj[f.first])
+               {
+                   if(!vis[it])
+                   {
+                       vis[it] = true;
+                       q.push({it,f.first});
+                   }
+                   else
+                   {
+                       if(it!=f.second) return true;
+                   }
+               }
+           }
+       }
+       
+       return false;
+   }
+   
+   
+   
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<bool>vis(V,0);
         
-        while(q.size())
+        for(int node=0;node<V;node++)
         {
-            int s = q.size();
-            
-            while(s--)
+            if(!vis[node])
             {
-                auto f = q.front();
-                q.pop();
-                
-                for(auto it: adj[f.first])
-                {
-                    if(!vis[it])
-                    {
-                        vis[it] = true;
-                        q.push({it,f.first});
-                    }
-                    else
-                    {
-                        if(it!=f.second) return true;
-                    }
-                }
+                vis[node] = true;
+                if(bfs(node,adj,vis)) return true;
             }
         }
         return false;
     }
-    bool isCycle(int V, vector<int> adj[]) 
-    {
-        vector<bool> vis(V,0);
-        
-        for(int i=0;i<V;i++)
-        {
-            if(!vis[i])
-            {
-                vis[i] = true;
-                if(bfs(i,adj,vis)) return true;
-            }
-        }
-       return false;
-        
-    }
-       
-    
 };
 
 // { Driver Code Starts.
