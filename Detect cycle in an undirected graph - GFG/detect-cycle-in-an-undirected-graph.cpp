@@ -5,8 +5,9 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
+    // Function to detect cycle in an undirected graph.
     
-    bool dfs(int node, int par,vector<int> adj[],vector<bool> &vis)
+    bool dfs(int node, int par,vector<int> adj[],vector<bool>&vis)
     {
         vis[node] = true;
         
@@ -14,26 +15,28 @@ class Solution {
         {
             if(!vis[it])
             {
-                if(dfs(it,node,adj,vis)) return true;
+                 if(dfs(it,node,adj,vis)) return true;
             }
-            else if(it!=par) return true;
+           
+            
+            else if(it!=par) return true; 
         }
+        
         return false;
+        
     }
     
     bool isCycle(int V, vector<int> adj[]) 
     {
         vector<bool> vis(V,0);
         
-        for(int i=0;i<V;i++)
+        for(int node=0;node<V;node++)
         {
-            if(!vis[i])
-            {
-                if(dfs(i,-1,adj,vis)) return true;
-            }
+            if(!vis[node])
+            if(dfs(node,-1,adj,vis)) return true;
+            
         }
         return false;
-        
     }
 };
 
