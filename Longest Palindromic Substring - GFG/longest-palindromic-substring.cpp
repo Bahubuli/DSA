@@ -9,36 +9,40 @@ using namespace std;
 
 class Solution{   
 public:
+    
     int expand(string s,int i,int j)
     {
         while(i>=0 && j<s.size() && s[i]==s[j])
         {
-            j++;
             i--;
+            j++;
         }
-        j--;
         i++;
+        j--;
         
-        return j-i+1;
+        return (j-i+1);
     }
+    
     string longestPalindrome(string s)
     {
-        int l=0,r=0,ans,n=s.size();
+        int n = s.size();
         reverse(s.begin(),s.end());
-        for(int i=0;i<s.size();i++)
+        int l=0,r=0,size=0;
+        
+        for(int i=0;i<n;i++)
         {
-            int res1 = expand(s,i,i+1);
-            int res2 = expand(s,i,i);
+            int len1 = expand(s,i,i+1);
+            int len2 = expand(s,i,i);
             
-            ans = max(res1,res2);
-            if(r-l<ans)
+            size = max(len1,len2);
+            
+            if(r-l<size)
             {
-                l = i-(ans-1)/2;
-                r = i+(ans)/2;
+                l = i - (size-1)/2;
+                r = i+(size)/2;
             }
         }
         return s.substr(l,r-l+1);
-       
     }
 };
 
