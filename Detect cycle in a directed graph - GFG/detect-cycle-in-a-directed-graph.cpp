@@ -6,7 +6,7 @@ using namespace std;
 class Solution {
   public:
     
-    bool dfs(int node,vector<int> adj[],vector<bool>&vis,vector<bool>&dfsvis)
+    bool dfs(int node,vector<int> adj[],vector<bool> &vis,vector<bool> &dfsvis)
     {
         if(vis[node]) return true;
         
@@ -26,20 +26,20 @@ class Solution {
         return false;
     }
     
-    
     bool isCyclic(int V, vector<int> adj[]) 
     {
-        vector<bool> vis(V,0), dfsvis(V,0);
+        vector<bool> vis(V,0),dfsvis(V,0);
         
-        for(int i=0;i<V;i++)
+        for(int node=0;node<V;node++)
         {
-            if(!vis[i])
+            if(!vis[node])
             {
-                if(dfs(i,adj,vis,dfsvis)) return true;
+                if(dfs(node,adj,vis,dfsvis)) return true;
             }
         }
         
         return false;
+        
     }
 };
 
