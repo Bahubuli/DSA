@@ -5,13 +5,26 @@ public:
     {
         if(!node) return node;
         
-        if(mp.find(node)==mp.end())
+        Node *ans = new Node(node->val,{});
+        mp[node] = ans;
+        queue<Node*> q;
+        q.push(node);
+        
+        while(q.size())
         {
-            mp[node] = new Node(node->val,{});
+            Node *f = q.front();
+            q.pop();
             
-            for(auto it:node->neighbors)
-                mp[node]->neighbors.push_back(cloneGraph(it));
+            for(auto it: f->neighbors)
+            {
+                if(mp.find(it)==mp.end())
+                {
+                    mp[it] = new Node(it->val,{});
+                    q.push(it);
+                }
+                mp[f]->neighbors.push_back(mp[it]);
+            }
         }
-        return mp[node];
+        return ans;
     }
 };
