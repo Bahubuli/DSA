@@ -35,7 +35,7 @@ public:
 	        if(color[i]==-1)
 	        {
 	            color[i] = 1;
-	            if(!dfs(i,0,adj,color)) return false;
+	            if(!dfs(i,i,adj,color)) return false;
 	        }
 	    }
 	   return true;
