@@ -31,16 +31,16 @@ public:
         
         for(int i=0;i<n;i++)
         {
-            int len1 = expand(s,i,i+1);
-            int len2 = expand(s,i,i);
-            
-            size = max(len1,len2);
-            
-            if(r-l<size)
-            {
-                l = i - (size-1)/2;
-                r = i+(size)/2;
-            }
+           int len1 =  expand(s,i,i+1);
+           int len2 = expand(s,i,i);
+           
+           size = max(len1,len2);
+           
+           if(r-l<size)
+           {
+               l = i-(size-1)/2;
+               r = i+(size)/2;
+           }
         }
         return s.substr(l,r-l+1);
     }
