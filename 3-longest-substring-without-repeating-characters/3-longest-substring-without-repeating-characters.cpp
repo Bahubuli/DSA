@@ -8,7 +8,7 @@ public:
         {
             hash[s[j]]++;
             
-            if(hash[s[j]]<=1)
+            if(hash[s[j]]==1)
             {
                 mx = max(mx,j-i+1);
                 j++;
