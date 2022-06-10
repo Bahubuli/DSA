@@ -13,32 +13,37 @@ class Solution
 {
     public:
     //Function to merge two nodes a and b.
-   int findPar(int a, int par[]){
-        if(a == par[a])
-            return a;
-        return par[a] = findPar(par[a], par);
+    
+    int findpar(int node,int par[])
+    {
+        if(par[node]==node) return node;
+        return findpar(par[node],par);
     }
     
-    void union_( int a, int b, int par[], int rank1[]) 
+    void union_( int a, int b, int par[], int rank[]) 
     {
-        a = findPar(a, par);
-        b = findPar(b, par);
-        if(rank1[a] > rank1[b]){
-            par[b] = a;
+        int pa = findpar(a,par);
+        int pb = findpar(b,par);
+        
+        if(rank[pa]<rank[pb])
+        {
+            par[pa] = pb;
         }
-        else if(rank1[a] < rank1[b]){
-            par[a] = b;
+        else if(rank[pa]>rank[pb])
+        {
+            par[pb] = pa;
         }
-        else{
-            par[a] = b;
-            rank1[b]++;
+        else
+        {
+            par[pa] = pb;
+            rank[pb]++;
         }
     }
     
     //Function to check whether 2 nodes are connected or not.
     bool isConnected(int x,int y, int par[], int rank1[])
     {
-        return findPar(x, par) == findPar(y, par);
+       return findpar(x,par)==findpar(y,par);
     }
 };
 
