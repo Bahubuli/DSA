@@ -4,14 +4,14 @@ public:
     {
         int dp[n+1];
         dp[0] = 0;
-        sort(coins.begin(),coins.end());
+       
         for(int i=1;i<=n;i++)
         {
             dp[i] = INT_MAX;
             
             for(int c: coins)
             {
-                if(i-c<0) break;
+                if(i-c<0) continue;
                 
                 if(dp[i-c]!=INT_MAX) dp[i] = min(dp[i],dp[i-c]+1);
             }
