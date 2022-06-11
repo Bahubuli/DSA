@@ -13,8 +13,7 @@ class Solution{
 public:
     int minOperations(int *a,int n)
     {
-        int ans=0;
-       
+        int ans = 0;
         priority_queue<int,vector<int>,greater<int>> pq;
         
         for(int i=0;i<n;i++)
@@ -22,8 +21,8 @@ public:
             if(pq.size() && pq.top()<a[i])
             {
                 ans+= a[i]-pq.top();
-                pq.pop();
                 pq.push(a[i]);
+                pq.pop();
             }
             pq.push(a[i]);
         }
