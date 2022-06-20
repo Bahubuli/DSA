@@ -7,23 +7,22 @@ class Solution {
 	public:
 		string FirstNonRepeating(string s){
 		    
-		    queue<int> q;
-		    string ans = "";
-		    int mp[26] = {0};
+		    queue<char> q;
+		    int mp[256] = {0};
+		    
 		    for(int i=0;i<s.size();i++)
 		    {
-		        mp[s[i]-'a']++;
+		        char c = s[i];
+		        mp[c]++;
+		        if(mp[c]==1) q.push(c);
 		        
-		        if(mp[s[i]-'a']==1) q.push(s[i]);
-		        
-		        while(q.size() && mp[q.front()-'a']!=1) q.pop();
+		        while(q.size() && mp[q.front()]>1) q.pop();
 		        
 		        if(q.size()) s[i] = q.front();
 		        else s[i] = '#';
-		        
-		        
 		    }
 		    return s;
+		    
 		}
 
 };
