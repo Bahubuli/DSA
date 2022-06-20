@@ -31,31 +31,31 @@ int main()
 
 int kthSmallest(int mat[MAX][MAX], int n, int k)
 {
-    int l = mat[0][0],r = mat[n-1][n-1];
+    int l = mat[0][0], r = mat[n-1][n-1];
     
     while(l<=r)
     {
-        int m1 = l+(r-l)/2;
-        int c = 0;
+        int count = 0;
+        
+        int mid = l+ (r-l)/2;
         
         for(int i=0;i<n;i++)
         {
-            int low = 0 , high = n-1;
+            int low =0, high = n-1;
             
             while(low<=high)
             {
-                int mid = low+(high-low)/2;
                 
-                if(mat[i][mid]<=m1) low = mid+1;
-                else high = mid-1;
+                int  m = low+(high-low)/2;
+                if(mat[i][m]<=mid) low = m+1;
+                else high =m-1;
             }
-            
-            c+= low;
-            
-            
+            count+=low;
         }
-        if(c<k) l = m1+1;
-        else r = m1-1;
+        
+        if(count<k) l = mid+1;
+        else r = mid-1;
+        
     }
-    return l;
+  return l;
 }
