@@ -35,8 +35,10 @@ class Solution{
        sort(B,B+m);
        int i=0,j=0;
        while(i<n && j<m){
-           if(sum1-A[i]+B[j]==sum2+A[i]-B[j]) return 1;
-           else if(sum1-A[i]+B[j]>sum2+A[i]-B[j]) i++;
+           int v1 = sum1-A[i]+B[j];
+           int v2 = sum2+A[i]-B[j];
+           if(v1==v2) return 1;
+           else if(v1>v2) i++;
            else j++;
        }
        return -1;
