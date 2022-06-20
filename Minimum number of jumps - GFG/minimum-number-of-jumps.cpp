@@ -8,29 +8,24 @@ using namespace std;
 
 class Solution{
   public:
-    
-
-    
     int minJumps(int arr[], int n)
     {
-        
-        int jumps=0,currmax=0,currreach=0;
+        int maxreach = 0,reach = 0,jump=0;
         
         for(int i=0;i<n-1;i++)
         {
-            if(i+arr[i]>currmax) currmax = i+arr[i];
+            if(arr[i]+i>maxreach) maxreach = arr[i]+i;
             
-            if(i==currreach)
+            if(i==reach)
             {
-                jumps++;
-                currreach = currmax;
+                jump++;
+                reach = maxreach;
             }
             
-            if(arr[i]==0 && i==currmax) return -1;
+            if(i==reach && arr[i]==0) return -1;
         }
-        return jumps;
-       
-       
+        return jump;
+        
     }
 };
 
