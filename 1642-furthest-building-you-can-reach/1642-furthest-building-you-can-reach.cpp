@@ -1,32 +1,34 @@
 class Solution {
 public:
-    int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
-         priority_queue<int> pq;
+    int furthestBuilding(vector<int>& heights, int bricks, int ladders) 
+    {
+        int n = heights.size();
+        priority_queue<int> pq;
         
-        for(int i = 0; i+1 < heights.size(); i++){
-            int distance = heights[i+1] - heights[i];
+        for(int i=1;i<heights.size();i++) 
+        {
+            int d = heights[i]-heights[i-1];
             
-            //when we need to climb up
-            //aways assume we are using ladder
-            // (-ve) do the trick for creating min heap
-            if(distance > 0){
-                pq.push(-distance);
+            if(d<=0) continue;
+            
+            if(bricks-d>=0)
+            {
+                bricks-=d;
+                pq.push(d);
             }
-            
-            //if we can't use ladder 
-            //then use bricks for the smallest difference
-            // as min heap so bricks -= height becomes bricks -= (-height) ~ bricks += height
-            if(pq.size() > ladders){
-                bricks += pq.top();
-                pq.pop();
+            else if(ladders>0)
+            {
+                if(pq.size() && pq.top()>d)
+                {
+                    bricks+= pq.top() -d;
+                    pq.pop();
+                    pq.push(d);
+                }
+                ladders--;
             }
+            else return i-1;
             
-            //if we run out of bricks then we are done moving up
-            if(bricks < 0) return i;
         }
-        
-        //we are here if we can reach the end of all building
-        return heights.size()-1;
-        
+        return n-1;
     }
 };
