@@ -105,10 +105,10 @@ class Solution
     void dfs(Node *root,int x,int y,map<int,vector<int>> &mp)
     {
         if(!root) return;
-      
-        mp[x*100+y].push_back(root->data);
+        
         
         dfs(root->left,x-1,y+1,mp);
+        mp[x*100+y].push_back(root->data);
         dfs(root->right,x+1,y+1,mp);
          
     }
@@ -124,9 +124,6 @@ class Solution
             for(auto x:it.second)
             ans.push_back(x);
         }
-        
-        
-        
         return ans;
         
     }
