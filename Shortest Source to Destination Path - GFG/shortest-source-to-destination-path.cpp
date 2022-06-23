@@ -21,7 +21,7 @@ class Solution {
         int dx[4] = {0,0,1,-1};
         int dy[4] = {-1,1,0,0};
         int i,j,d;
-        bool found = false;
+        bool ans= false;
         q.push({0,{0,0}});
         mat[0][0] = 0;
         
@@ -35,7 +35,7 @@ class Solution {
             
             if(i==x && j==y)
             {
-                found = true;
+                ans = true;
                 break;
             }
             
@@ -52,8 +52,7 @@ class Solution {
             }
             
         }
-        if(found) return d;
-        return -1;
+       return ans ? d: -1;
         
     }
 };
