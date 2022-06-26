@@ -6,34 +6,31 @@ using namespace std;
 class Solution
 {
 public:
-    int helper(int *nums, int n,int k)
+    int countDistinctSubarray(int arr[], int n)
     {
+        int i=0,j=0,ans=0;
         map<int,int> mp;
-        int count=0,i=0;
+        set<int> st;
+        
+        for(int i=0;i<n;i++) st.insert(arr[i]);
+        
+        int k = st.size();
         
         for(int j=0;j<n;j++)
         {
-            mp[nums[j]]++;
-            while(i<=j && mp.size()>k)
+            mp[arr[j]]++;
+            
+            while(mp.size()==k && i<=j)
             {
-                if(mp[nums[i]]==1) mp.erase(nums[i]);
-                else mp[nums[i]]--;
+                ans+=(n-j);
+                mp[arr[i]]--;
                 
+                if(mp[arr[i]]==0) mp.erase(arr[i]);
                 i++;
             }
-            count+= (j-i+1);
         }
-        return count;
+        return ans;
     }
-    
-    int countDistinctSubarray(int arr[],int n)
-    {
-        set<int>st;
-        for(int i=0;i<n;i++) st.insert(arr[i]);
-        int k = st.size();
-        return helper(arr,n,k)-helper(arr,n,k-1);
-    }
-    
 };
 
 
