@@ -31,7 +31,7 @@ side.</span></pre>
 <p>&nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Your Task:</strong><br>
-You don't need to read or print anything. Your task is to complete the function&nbsp;<strong>ToralWays()</strong>&nbsp;which takes N as input parameter and returns the total possible ways modulo 10<sup>9</sup>&nbsp;+ 7.</span><br>
+You don't need to read or print anything. Your task is to complete the function&nbsp;<strong>TotalWays()</strong>&nbsp;which takes N as input parameter and returns the total possible ways modulo 10<sup>9</sup>&nbsp;+ 7.</span><br>
 &nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Expected Time Complexity:&nbsp;</strong>O(N)<br>
