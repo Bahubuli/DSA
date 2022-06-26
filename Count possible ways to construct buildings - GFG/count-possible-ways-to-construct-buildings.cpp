@@ -5,24 +5,24 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
 	public:
-	int solve(long long int n,vector<long long int> &t){
-    if(n == 1)
-       return 2;
-    if(n == 2)
-       return 3;
-       
-    if(t[n] != -1)
-       return t[n];
-       
-    return t[n] = (solve(n-1,t) + solve(n-2,t))%1000000007;
-}
-
-int TotalWays(int N)
-{
-    vector<long long int> t(N+1,-1);
-    long long int temp = solve(N,t);
-    return ((temp*temp)%(1000000007));
-}
+	
+	long long int helper(int n, vector<long long int> &dp)
+	{
+	    if(n==1) return 2;
+	    if(n==2) return 3;
+	    
+	    if(dp[n]!=-1) return dp[n];
+	    long long int mod = 1e9+7;
+	    return dp[n] = (helper(n-1,dp)%mod+helper(n-2,dp)%mod)%mod;
+	}
+	
+	int TotalWays(int N)
+	{
+	    vector<long long int> dp(N+1,-1);
+	    long long  int mod = 1e9+7;
+	    long long int ans =  helper(N,dp);
+	    return (ans*ans)%mod;
+	}
 };
 
 // { Driver Code Starts.
