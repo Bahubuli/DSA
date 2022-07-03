@@ -11,12 +11,12 @@ class Solution{
 public:
     
     vector<string> ans;
-    void helper(vector<string>&dict,string s,int n,string psf)
+    void helper(vector<string>&dict,string s,int n,string res)
     {
         if(s.size()==0)
         {
-            psf.erase(psf.begin()+psf.size()-1);
-            ans.push_back(psf);
+            res.pop_back();
+            ans.push_back(res);
             return;
         }
         
@@ -27,7 +27,7 @@ public:
             if(find(dict.begin(),dict.end(),left)!=dict.end())
             {
                 string right = s.substr(i+1);
-                helper(dict,right,n,psf+left+" ");
+                helper(dict,right,n,res+left+" ");
             }
         }
         
@@ -36,8 +36,8 @@ public:
     
     vector<string> wordBreak(int n, vector<string>& dict, string s)
     {
-        string psf;
-        helper(dict,s,n,psf);
+        string res;
+        helper(dict,s,n,res);
         return ans;
         
     }
