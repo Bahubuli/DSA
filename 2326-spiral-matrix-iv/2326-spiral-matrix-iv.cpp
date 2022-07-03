@@ -22,41 +22,40 @@ public:
         
         while(l<=r && u<=d)
         {
-            for(int col = l;col<=r;col++)
-               if(head)
+            for(int col = l;col<=r && head;col++)
                {
                    mat[u][col] = head->val;
                    head = head->next;
                }
             
             if(++u>d) break;
-            for(int row = u;row<=d;row++)
+            for(int row = u;row<=d && head;row++)
             {
-               if(head)
-               {mat[row][r] = head->val;
+              
+               mat[row][r] = head->val;
                 head = head->next;
-               }
+               
             }
             
             if(--r<l) break;
             
-            for(int col=r;col>=l;col--)
+            for(int col=r;col>=l && head;col--)
             {
-               if(head)
-               {mat[d][col]=head->val;
+               
+               mat[d][col]=head->val;
                      head = head->next;
-               }
+               
             }
             
             if(--d<u) break;
             
-            for(int row=d;row>=u;row--)
+            for(int row=d;row>=u && head;row--)
             {
-               if(head)
-               {
+               
+               
                    mat[row][l] = head->val;
                     head = head->next;
-               }
+               
                 
             }
             
