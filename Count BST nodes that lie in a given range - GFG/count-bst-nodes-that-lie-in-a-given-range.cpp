@@ -92,6 +92,7 @@ public:
        if(!root) return 0;
        
        int ans = (root->data<=h && root->data>=l);
+       
        return ans+getCount(root->left,l,h)+getCount(root->right,l,h);
     }
 };
