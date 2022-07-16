@@ -4,25 +4,28 @@ public:
     int subc(string &s, string &t) 
 {
     int n = s.size(),m = t.size();
-    vector<vector<unsigned int>>dp(n+1,vector<unsigned int>(m+1,0));
-    
-    for(int k=0;k<=n;k++) dp[k][0]=1;
+  vector<unsigned int>prev(m+1,0),curr(m+1,0);
+     
+        prev[0] = 1;
+        curr[0]  = 1;
     
     for(int i=1;i<=n;i++)
     {
+        
         for(int j=1;j<=m;j++)
         {
             int match = s[i-1]==t[j-1];
             
-            if(match) match= dp[i-1][j-1];
+            if(match) match= prev[j-1];
             
-            int notmatch = dp[i-1][j];
+            int notmatch = prev[j];
             
-            dp[i][j] = (match+notmatch)%mod;
+           curr[j] = (match+notmatch)%mod;
         }
+        prev = curr;
     }
     
-    return dp[n][m];
+    return curr[m];
    
 }
     
