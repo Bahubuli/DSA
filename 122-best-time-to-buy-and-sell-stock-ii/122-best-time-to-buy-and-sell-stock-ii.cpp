@@ -22,10 +22,10 @@ public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size(),pick, npick;
-        vector<vector<int>>dp(n+1,vector<int>(2,-1));
+        vector<int>prev(2,-1),curr(2,-1);
         
-        dp[n][0] = 0;
-        dp[n][1] = 0;
+        prev[0] = 0;
+        prev[1] = 0;
         
         
         for(int i=n-1;i>=0;i--)
@@ -34,21 +34,22 @@ public:
             {
                 if(buy)
                 {
-                    pick = -prices[i]+dp[i+1][buy-1];
-                    npick =dp[i+1][buy];
+                    pick = -prices[i]+prev[buy-1];
+                    npick =prev[buy];
                 }
                 else
                 {
-                    pick = prices[i]+dp[i+1][buy+1];
-                    npick = dp[i+1][buy];
+                    pick = prices[i]+prev[buy+1];
+                    npick = prev[buy];
                 }
                 
-                dp[i][buy] = max(pick,npick);
+                curr[buy] = max(pick,npick);
             }
+            prev = curr;
         }
         
         
-        return dp[0][1];
+        return curr[1];
         
     }
 };
