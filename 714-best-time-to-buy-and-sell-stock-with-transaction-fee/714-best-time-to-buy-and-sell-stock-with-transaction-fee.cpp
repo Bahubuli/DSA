@@ -25,8 +25,29 @@ public:
     int maxProfit(vector<int>& prices, int fee) 
     {
         int n = size(prices);
-        vector<vector<int>>dp(n+1,vector<int>(2,-1));
-        return helper(prices,0,1,fee,dp);
+        vector<vector<int>>dp(n+1,vector<int>(2,0));
+       
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int buy=0;buy<2;buy++)
+            {
+                int pick,npick;
+                if(buy)
+                {
+                    pick = -fee-prices[i]+dp[i+1][0];
+                    npick = dp[i+1][1];
+                }
+                else
+                {
+                    pick = prices[i]+dp[i+1][1];
+                    npick =dp[i+1][0]; 
+                }
+                dp[i][buy] = max(pick,npick);
+            }
+        }
+        
+        return dp[0][1];
         
     }
 };
