@@ -26,8 +26,8 @@ public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size();
-        int dp[n+1][3][3];
-        memset(dp,0,sizeof(dp));
+        vector<vector<int>>prev(3,vector<int>(3,0)),curr(3,vector<int>(3,0));
+        
         
         for(int day=n-1;day>=0;day--)
         {
@@ -38,23 +38,25 @@ public:
                 {
                     if(buy && cap)
                     {
-                        int pick = -prices[day]+ dp[day+1][0][cap];
-                        int npick = dp[day+1][1][cap]; 
-                        dp[day][buy][cap]= max(pick,npick);
+                        int pick = -prices[day]+ prev[0][cap];
+                        int npick = prev[1][cap]; 
+                        curr[buy][cap]= max(pick,npick);
                     }
                     else if(cap)
                     {
-                        int pick = prices[day]+ dp[day+1][1][cap-1];
-                        int npick = dp[day+1][0][cap];
-                        dp[day][buy][cap] = max(pick,npick);
+                        int pick = prices[day]+ prev[1][cap-1];
+                        int npick = prev[0][cap];
+                        curr[buy][cap] = max(pick,npick);
                     }
                     
                 }
                 
             }
+            
+            prev = curr;
         }
         
-        return dp[0][1][2];
+        return curr[1][2];
         
     }
 };
