@@ -26,7 +26,7 @@ public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size();
-        int dp[100001][3][3];
+        int dp[n][3][3];
         memset(dp,-1,sizeof(dp));
         return helper(prices,0,1,2,dp);
         
