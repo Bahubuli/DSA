@@ -1,36 +1,42 @@
 class Solution {
 public:
     
-    int helper(vector<int>&nums,int i,int pi,  vector<int>&dp)
+    int helper(vector<int>&nums,int i,int pi,vector<vector<int>>&dp)
     {
         int n = nums.size(),pick=0,npick=0;
         if(i==n) return 0;
-        
-        if(dp[pi+1]!=-1) return dp[pi+1];
+        if(dp[i][pi+1]!=-1) return dp[i][pi+1];
         
         if(pi==-1 || nums[pi]<nums[i]) pick = 1+helper(nums,i+1,i,dp);
         npick = helper(nums,i+1,pi,dp);
         
-        return dp[pi+1] =  max(pick,npick);
+        return dp[i][pi+1] =  max(pick,npick);
     }
     int lengthOfLIS(vector<int>& nums) 
     {
-        int n = nums.size(),ans=1;
-        vector<int>dp(n+1,1);
+        int n = nums.size();
+        vector<vector<int>>dp(n+1,vector<int>(n+2,0));
         
-        for(int i=0;i<n;i++)
+       
+        
+        for(int i=n-1;i>=0;i--)
         {
-            for(int pi=0;pi<i;pi++)
+            
+            for(int pi=i-1;pi>=-1;pi--)
             {
-                if(nums[i]>nums[pi])
-                {
-                    dp[i] = max(dp[i],dp[pi]+1);
-                    ans = max(ans,dp[i]);
-                }
+                int pick=0,npick=0;
+                npick = dp[i+1][pi+1];
+                
+                if(pi==-1 || nums[pi]<nums[i])
+                    pick = 1+dp[i+1][i+1];
+                    
+                dp[i][pi+1] = max(pick,npick);
             }
         }
         
-        return ans;
+        
+        
+        return dp[0][0];
         
     }
 };
