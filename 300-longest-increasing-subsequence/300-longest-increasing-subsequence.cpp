@@ -15,9 +15,22 @@ public:
     }
     int lengthOfLIS(vector<int>& nums) 
     {
-        int n = nums.size();
-        vector<int>dp(n+1,-1);
-        return helper(nums,0,-1,dp);
+        int n = nums.size(),ans=1;
+        vector<int>dp(n+1,1);
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int pi=0;pi<i;pi++)
+            {
+                if(nums[i]>nums[pi])
+                {
+                    dp[i] = max(dp[i],dp[pi]+1);
+                    ans = max(ans,dp[i]);
+                }
+            }
+        }
+        
+        return ans;
         
     }
 };
