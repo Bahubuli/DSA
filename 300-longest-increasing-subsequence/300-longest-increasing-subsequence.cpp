@@ -12,7 +12,8 @@ public:
             if(nums[i]>res.back()) res.push_back(nums[i]);
             else
             {
-               *lower_bound(res.begin(),res.end(),nums[i]) = nums[i];
+               int idx = lower_bound(res.begin(),res.end(),nums[i]) - res.begin();
+               res[idx] = nums[i];
              
             }
         }
