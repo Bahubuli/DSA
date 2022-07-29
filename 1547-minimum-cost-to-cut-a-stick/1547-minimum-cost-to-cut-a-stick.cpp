@@ -3,7 +3,7 @@ public:
     
     int helper(vector<int>&cuts,int i,int j, vector<vector<int>>&dp)
     {
-        if(i>j) return 0;
+        
         if(dp[i][j]!=-1) return dp[i][j];
         int res = 1e9;
         for(int k = i;k<=j;k++)
@@ -12,6 +12,7 @@ public:
                       helper(cuts,i,k-1,dp)+helper(cuts,k+1,j,dp));
         }
         
+        if(res==1e9) return dp[i][j] = 0;
         return dp[i][j] = res;
     }
     
