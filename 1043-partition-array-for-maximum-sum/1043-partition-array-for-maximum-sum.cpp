@@ -23,8 +23,30 @@ public:
     
     int maxSumAfterPartitioning(vector<int>& nums, int k) 
     {
-        memset(dp,-1,sizeof(dp));
         int n = nums.size();
-        return helper(nums,0,n-1,k);
+        memset(dp,0,sizeof(dp));
+        
+        for(int i=0;i<n;i++) dp[i][i] = nums[i];
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(j<=i) continue;
+                
+                  int ans = 0;
+                  int mx =0;
+                  for(int d=i;d<min(i+k,j+1);d++)
+                  {
+
+                      mx = max(mx,nums[d]);
+                      ans = max(ans,(d-i+1)*mx+ dp[d+1][j]);
+                  }
+
+                   dp[i][j] =  ans;
+            }
+        }
+       
+        return dp[0][n-1];
     }
 };
