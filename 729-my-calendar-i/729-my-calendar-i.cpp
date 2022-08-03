@@ -10,16 +10,14 @@ public:
     
     bool book(int start, int end) 
     {
-        auto slot = st.lower_bound({start,end});
+        auto idx = st.lower_bound({start,end});
         
-        if(slot!=st.end() && !(slot->first>=end) 
-           
-           || slot!=st.begin() && !(prev(slot)->second<=start))
-            return false;
+        if(idx!=st.end() && (idx->first<end)) return false;
+        
+        if(idx!=st.begin() && !(prev(idx)->second<=start)) return false;
         
         st.insert({start,end});
         return true;
-        
     }
 };
 
