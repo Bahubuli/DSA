@@ -12,19 +12,19 @@
 class Solution {
 public:
     
-    pair<TreeNode*,bool> dfs(TreeNode *root)
+   bool dfs(TreeNode *root)
     {
-        if(!root) return {NULL,false};
+        if(!root) return NULL;
         
         auto l = dfs(root->left);
         auto r = dfs(root->right);
         
-        if(l.second==false) root->left = NULL;
-        if(r.second==false) root->right = NULL;
+        if(l==false) root->left = NULL;
+        if(r==false) root->right = NULL;
         
-        bool res = l.second+r.second+(root->val==1);
+        bool res = l+r+(root->val);
         
-        return {root,res};
+        return res;
         
     }
     
@@ -32,7 +32,7 @@ public:
     {
         auto ans = dfs(root);
         
-        if(ans.second==0 && root->val==0) return NULL;
+        if(ans==0 && root->val==0) return NULL;
         
         return root;
     }
