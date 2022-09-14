@@ -2,7 +2,7 @@ class Solution {
 public:
     
     
-    void dfs(TreeNode *root,vector<int>mp,int &ans)
+    void dfs(TreeNode *root,vector<int>&mp,int &ans)
     {
         if(!root) return;
         
@@ -17,6 +17,7 @@ public:
             }
             //cout<<odd<<endl;
             if(odd<=1) ans++;
+            mp[root->val]--;
             return;
         }
         
