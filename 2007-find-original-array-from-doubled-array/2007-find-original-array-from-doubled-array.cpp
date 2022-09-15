@@ -11,14 +11,12 @@ public:
         vector<int>ans;
         
         for(auto x:nums)
-            if(mp.size() && (mp.find(x*2)!=mp.end()) &&  (mp.find(x)!=mp.end()))
+            if(mp.size() && mp[2*x] && mp[x])
             {
                 mp[x]--;
                 if(mp[x*2]==0) return{};
                 mp[x*2]--;
                 
-                if(mp[x]==0) mp.erase(x);
-                if(mp[x*2]==0) mp.erase(x*2);
                 ans.push_back(x);
             }
             
