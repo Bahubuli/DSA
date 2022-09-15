@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& nums) 
     {
-        if(nums.size()%2) return {};
+       
         sort(nums.begin(),nums.end());
         unordered_map<int,int>mp;
         
@@ -20,7 +20,7 @@ public:
                 ans.push_back(x);
             }
             
-        if(ans.size()<nums.size()/2) return {};
+        if(2*ans.size()<nums.size()) return {};
         return ans;
     }
 };
