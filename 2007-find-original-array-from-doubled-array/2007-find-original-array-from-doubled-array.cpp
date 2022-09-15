@@ -4,22 +4,21 @@ public:
     {
         if(nums.size()%2) return {};
         sort(nums.begin(),nums.end());
-        multiset<int> st;
+        unordered_map<int,int>mp;
         
-        for(auto x:nums) st.insert(x);
+        for(auto x:nums) mp[x]++;
         
         vector<int>ans;
         
         for(auto x:nums)
-            if(st.size() && (st.find(x*2)!=st.end()) &&  (st.find(x)!=st.end()))
+            if(mp.size() && (mp.find(x*2)!=mp.end()) &&  (mp.find(x)!=mp.end()))
             {
-                auto it = st.find(x); 
-                st.erase(it);
+                mp[x]--;
+                if(mp[x*2]==0) return{};
+                mp[x*2]--;
                 
-                auto it2 = st.find(x*2); 
-                if(it2==st.end()) return {};
-                st.erase(it2);
-                
+                if(mp[x]==0) mp.erase(x);
+                if(mp[x*2]==0) mp.erase(x*2);
                 ans.push_back(x);
             }
             
