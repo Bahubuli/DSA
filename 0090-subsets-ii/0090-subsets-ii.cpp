@@ -3,9 +3,11 @@ public:
     void helper(vector<vector<int>> &ans, vector<int>& sb,vector<int> &nums,int i)
     {
         ans.push_back(sb);
+        
         for(int j=i;j<nums.size();j++)
         {
-            if(j!=i && nums[j]==nums[j-1]) continue;
+            if(j!=i && nums[j-1]==nums[j]) continue;
+            
             sb.push_back(nums[j]);
             helper(ans,sb,nums,j+1);
             sb.pop_back();
