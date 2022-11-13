@@ -11,19 +11,24 @@ class Solution
     //Function to find the minimum number of swaps required to sort the array. 
 	int minSwaps(vector<int>&nums)
 	{
-	    vector<pair<int,int>>arr;
+	    vector<int>arr;
 	    
 	    int n = nums.size(),ans=0;
 	    
-	    for(int i=0;i<n;i++) arr.push_back({nums[i],i});
+	    for(int i=0;i<n;i++) arr.push_back(nums[i]);
 	    sort(arr.begin(),arr.end());
+	    
+	    map<int,int> mp;
+	    
+	    for(int i=0;i<n;i++) mp[arr[i]] = i;
+	    
 	    for(int i=0;i<n;i++)
 	    {
-	        if(i!=arr[i].second)
+	        if(i!=mp[nums[i]])
 	        {
-	            swap(arr[i],arr[arr[i].second]);
-	            i--;
+	            swap(nums[i],nums[mp[nums[i]]]);
 	            ans++;
+	            i--;
 	        }
 	    }
 	    
