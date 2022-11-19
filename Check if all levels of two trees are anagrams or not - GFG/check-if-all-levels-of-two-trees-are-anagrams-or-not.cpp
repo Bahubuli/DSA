@@ -117,14 +117,13 @@ class Solution{
             }
             
             for(auto it:mp)
-            {
                 if(it.second!=0) return false;
-            }
+            
             
         }
-        //cout<<q1.size() <<" "<<q2.size()<<endl;
-        if(q1.size() || q2.size()) return false;
-        return true;
+        
+        return (!q1.size() && !q2.size());
+        
     }
 };
 
