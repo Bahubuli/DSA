@@ -1,31 +1,21 @@
 class Solution {
 public:
-    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
-        
-        int total = (C-A) * (D-B) + (G-E) * (H-F);
-    
-    if (C<=E || A>=G || B>=H || D<=F )
-        return total;
-    else
+    int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) 
     {
-        vector <int> h;
-        h.push_back(A);
-        h.push_back(C);
-        h.push_back(E);
-        h.push_back(G);
-   
-        vector <int> v;
-        v.push_back(B);
-        v.push_back(D);
-        v.push_back(F);
-        v.push_back(H);
-    
-        sort(h.begin(), h.end());
-        sort(v.begin(), v.end());
-    
-        total = total - (h[2] - h [1]) * (v[2] - v[1]);
-        return total;
-    }
+        int ans = (ax2-ax1)*(ay2-ay1) + (bx2-bx1)*(by2-by1);
+        
+        if(ax1>=bx2 || ay1>=by2 || bx1>=ax2 || by1>=ay2) return ans;
+        else
+        {
+            int allx[] = {ax1,ax2,bx1,bx2};
+            int ally[] = {ay1,ay2,by1,by2};
+            
+            sort(allx,allx+4);
+            sort(ally,ally+4);
+            
+            ans-= (allx[2]-allx[1])*(ally[2]-ally[1]);
+        }
+        return ans;
         
     }
 };
