@@ -13,7 +13,8 @@ public:
             
             int j = st.size() ? st.top() : -1;
             
-            sum[i] = ((j<0)?0:sum[j]) + (i-j)*arr[i]%mod;
+            sum[i] += (i-j)*arr[i]%mod;
+            sum[i] += ((j<0)?0:sum[j]); 
             
             st.push(i);
         }
