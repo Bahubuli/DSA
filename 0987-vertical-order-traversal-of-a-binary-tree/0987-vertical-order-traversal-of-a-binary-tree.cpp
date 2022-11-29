@@ -11,34 +11,36 @@
  */
 class Solution {
 public:
+    
+    void dfs(TreeNode *root,int x,int y,map<int,map<int,multiset<int>>>&mp)
+    {
+        if(!root) return;
+        
+        if(root->left) dfs(root->left,x-1,y+1,mp);
+        if(root->right) dfs(root->right,x+1,y+1,mp);
+        
+        mp[x][y].insert(root->val);
+    }
+    
     vector<vector<int>> verticalTraversal(TreeNode* root) 
     {
-       map<int,map<int,multiset<int>>>nodes;
-        traverse(root,0,0,nodes);
+        map<int,map<int,multiset<int>>>mp;
+        dfs(root,0,0,mp);
+        
         vector<vector<int>>ans;
         
-        for(auto p: nodes)
+        for(auto x:mp)
         {
-            vector<int> col;
-            for(auto q: p.second)
-            {
-                for(auto x:q.second)
-                    col.push_back(x);
-            }
+            vector<int>col;
+            
+            for(auto y:x.second)
+                for(auto num:y.second)
+                    col.push_back(num);
+            
             ans.push_back(col);
+                
         }
         return ans;
         
     }
-    
-    void traverse(TreeNode *root, int x,int y,map<int,map<int,multiset<int>>> &nodes)
-    {
-        if(root==NULL)
-            return;
-       
-        if(root->left) traverse(root->left,x-1,y+1,nodes);
-        if(root->right) traverse(root->right,x+1,y+1,nodes);
-         nodes[x][y].insert(root->val);
-    }
-        
 };
