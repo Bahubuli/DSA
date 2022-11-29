@@ -23,18 +23,23 @@ public:
         {
             int s= q.size();
             int start = q.front().second;
-            int end = q.back().second;
-            ans = max(ans,end-start+1);
             
+            //ans = max(ans,end-start+1);
+            int lmost=0,rmost=0;
             while(s--)
             {
                 auto node = q.front().first;
-                int idx = q.front().second-start;
+                int idx = q.front().second;
+                if(lmost==0) lmost = idx;
+                if(s==0) rmost = idx;
+                idx = idx-start;
                 q.pop();
                 
                 if(node->left) q.push({node->left,(long long)2*idx+1});
                 if(node->right) q.push({node->right,(long long)2*idx+2});
             }
+            
+            ans = max(ans,rmost-lmost+1);
         }
         return ans;
     }
