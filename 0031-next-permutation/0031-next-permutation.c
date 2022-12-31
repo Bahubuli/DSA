@@ -1,6 +1,6 @@
-void reverse(int* nums,int n)
+void reverse(int* nums,int i,int j)
 {
-    int i = 0,j=n-1;
+   
     while(i<=j)
     {
         swap(&nums[i],&nums[j]);
@@ -26,7 +26,7 @@ void nextPermutation(int* nums, int n)
     
     if(i<0)
     {
-        reverse(nums,n);
+        reverse(nums,0,n-1);
     }
     else
     {
@@ -38,14 +38,7 @@ void nextPermutation(int* nums, int n)
                 break;
             }
         }
-        int j = n-1;
-        i++;
-        while(i<j)
-        {
-            swap(nums+i,nums+j);
-            i++;
-            j--;
-        }
+        reverse(nums,i+1,n-1);
     }
 
 }
