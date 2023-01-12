@@ -10,21 +10,21 @@ public:
             }
         }
         
-    
-    int dfs(int node,int ans,vector<bool>&vis,vector<bool>&apple,vector<int>adj[])
+    int dfs(int node,int cost,vector<bool>&vis,vector<bool>&hasApple,vector<int>adj[])
     {
         if(vis[node]) return 0;
-        vis[node] = true;
+        vis[node] = 1;
         
         int res = 0;
+        for(auto it:adj[node])
+            res+=dfs(it,2,vis,hasApple,adj);
         
-        for(auto adjnode:adj[node])
-            res+= dfs(adjnode,2,vis,apple,adj);
+        if(res==0 && !hasApple[node]) return 0;
         
-        if(res==0 && !apple[node]) return 0;
+        return cost+res;
         
-        return ans+res;
     }
+    
     
     
     int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) 
