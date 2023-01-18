@@ -14,9 +14,7 @@ public:
             
             mx = max(mx,currmax);
             mn = min(mn,currmin);
-        }
-        
-        return mx>0 ? max(mx,total-mn) : mx;
-        
+        }   
+        return mx>0 ? max(mx,total-mn) : mx; 
     }
 };
