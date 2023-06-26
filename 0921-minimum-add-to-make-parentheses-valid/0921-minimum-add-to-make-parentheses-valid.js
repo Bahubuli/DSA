@@ -13,6 +13,11 @@ function  helper(s,i,op,cl)
 
 var minAddToMakeValid = function(s) 
 {
-    return helper(s,0,0,0);
+    let l=0,r=0;
+    for(let i=0;i<s.length;i++)
+        if(s[i]==')' && l) l--;
+        else if(s[i]==')') r++;
+        else l++;
+    return l+r;
     
 };
