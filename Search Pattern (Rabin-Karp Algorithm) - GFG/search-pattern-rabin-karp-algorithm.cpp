@@ -37,6 +37,8 @@ class Solution
         for(int i=0;i<n;i++)
         hash[i+1] = (hash[i]+ (txt[i]-'a'+1)*powers[i])%mod;
         
+        
+        
         for(int i=0;i+m-1<n;i++)
         {
             long long curr = (hash[i+m]+mod-hash[i])%mod;
