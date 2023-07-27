@@ -1,43 +1,40 @@
 class Solution {
 public:
-    
-   
-    int calPoints(vector<string>& ops) 
+    int calPoints(vector<string>&ops)
     {
+        int n = ops.size();
         stack<int>st;
-        for(int i=0;i<ops.size();i++)
+        
+        for(int i=0;i<n;i++)
         {
-            if(ops[i]=="+")
+            if(ops[i]=="C")
+                st.pop();
+            
+            else if(ops[i]=="D")
+                st.push(st.top()*2);
+            
+            else if(ops[i]=="+")
             {
                 int t1 = st.top();
                 st.pop();
                 int t2 = st.top();
                 
-                int newRecord = t1+t2;
+                int newR = t1+t2;
                 st.push(t1);
-                st.push(newRecord);
-            }
-            else if(ops[i]=="D")
-            {
-                st.push(st.top()*2);
-            }
-            else if(ops[i]=="C")
-            {
-                st.pop();
+                st.push(newR);
             }
             else 
-            {
                 st.push(stoi(ops[i]));
-            }
+            
         }
-        
-        int ans = 0;
-        while(st.size())
+        int sum = 0;
+        while(st.size()>0)
         {
-            ans+=st.top();
+            sum = sum+st.top();
             st.pop();
         }
-        return ans;
+        
+        return sum;
         
     }
 };
