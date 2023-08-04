@@ -21,8 +21,7 @@ public:
         if(l && r) return root;
         
         if(l==NULL) return r;
-        if(r==NULL) return l;
+        else  return l;
         
-        return NULL;
     }
 };
