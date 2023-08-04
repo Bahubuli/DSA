@@ -7,33 +7,23 @@
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ 
  * };
  */
 class Solution {
 public:
-    
-    int helper(TreeNode *root,bool &ans)
-    {
-        if(root==NULL) return 0;
-        
-        if(root->left==NULL && root->right==NULL) return root->val;
-        
-        
-        int l = helper(root->left,ans);
-        int r = helper(root->right,ans);
-        
-        if(l+r!=root->val) ans= false;
-        
-        return root->val;
-    }
-    
     bool checkTree(TreeNode* root) 
     {
-        bool ans = true;
-        helper(root,ans);
+        if(root==NULL) return true;
+        if(root->left==NULL && root->right==NULL) return true;
         
-        return ans;
+        int l=0,r=0;
+        if(root->left) l = root->left->val;
+        if(root->right) r= root->right->val;
         
+        if(l+r==root->val) return true;
+        
+        return false;
         
     }
 };
