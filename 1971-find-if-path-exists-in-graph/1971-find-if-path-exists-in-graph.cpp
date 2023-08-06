@@ -3,17 +3,28 @@ public:
     
     bool haspath(vector<vector<int>>&graph,vector<bool>&vis,int s,int d)
     {
-        if(vis[s]) return false;
+      
+        queue<int>q;
+        q.push(s);
+        vis[s] = true;
+        while(q.size())
+        {
+            int curr = q.front();
+            q.pop();
+            
+            if(curr==d) return true;
+            
+            for(auto it:graph[curr])
+            {
+                if(!vis[it])
+                {
+                    q.push(it);
+                    vis[it] = true;
+                }
+            }
+        }
         
-        if(s==d) return true;
-        
-        vis[s] = 1;
-        bool ans = false;
-        
-        for(auto it:graph[s])
-            ans+= haspath(graph,vis,it,d);
-        
-        return ans;
+        return false;
             
     }
     
