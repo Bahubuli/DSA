@@ -10,13 +10,11 @@ public:
         vis[s] = true;
         
         bool ans = false;
+        
         for(int adj:edges[s])
-        {
-            if(!vis[adj])
                 ans = ans + dfs(edges,vis,adj,d); 
             
-            if(ans) return ans;
-        }
+        
         return ans;
     }
     
