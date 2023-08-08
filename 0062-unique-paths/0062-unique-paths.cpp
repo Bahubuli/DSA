@@ -3,8 +3,9 @@ public:
     
     int helper(int m,int n,vector<vector<int>>&dp)
     {
+        if(m<=0 || n<=0) return 0;
+        
         if(n==1 && m==1) return 1;
-        if(n<=0 || m<=0) return 0;
         
         if(dp[n][m]!=-1) return dp[n][m];
         
@@ -14,8 +15,11 @@ public:
         return dp[n][m] = top+left;
     }
     
-    int uniquePaths(int m, int n) {
+    int uniquePaths(int m, int n) 
+    {
         vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
         return helper(m,n,dp);
+        
     }
 };
