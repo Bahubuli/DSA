@@ -93,7 +93,7 @@ struct Node
 class Solution {
 public:
    int findPath(Node *root, int &maxSum) {
-        if(!root) return -1e8;
+        if(!root) return INT_MIN;
         
         if(!root->left && !root->right) return root->data;
         
