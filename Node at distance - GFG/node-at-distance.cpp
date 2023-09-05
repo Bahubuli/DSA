@@ -125,11 +125,8 @@ void helper(Node *node,int k)
     if(!node) return;
     
     if(k==0) 
-    {
-        st.insert(node);
-        return;
-    }
-    
+       st.insert(node);
+
     helper(parent[node],k-1);
 }
 
